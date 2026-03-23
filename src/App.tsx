@@ -1,4 +1,3 @@
-import React from 'react';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Home } from './pages/Home';

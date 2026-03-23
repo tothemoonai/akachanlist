@@ -1,15 +1,23 @@
-import { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Header } from '../components/Header';
 import { CategoryNav } from '../components/CategoryNav';
 import { CategorySection } from '../components/CategorySection';
 import { Footer } from '../components/Footer';
-import { LoadingSpinner } from '../components/LoadingSpinner';
-import { ErrorMessage } from '../components/ErrorMessage';
-import { useProjectData } from '../hooks/useProjectData';
+import { Category } from '../types';
+import { loadItemsData } from '../utils/data';
 
 export const Home: React.FC = () => {
-  const { data, isLoading, isError } = useProjectData('akachanlist');
+  const [data, setData] = useState<{ meta: any; categories: Category[] } | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const categoryRefs = useRef<{ [key: string]: HTMLElement | null }>({});
+
+  useEffect(() => {
+    loadItemsData()
+      .then(setData)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }, []);
 
   const handleCategoryClick = (categoryId: string) => {
     const element = categoryRefs.current[categoryId];
@@ -18,12 +26,31 @@ export const Home: React.FC = () => {
     }
   };
 
-  if (isLoading) {
-    return <LoadingSpinner />;
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">加载中...</p>
+        </div>
+      </div>
+    );
   }
 
-  if (isError) {
-    return <ErrorMessage />;
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-500 mb-4">{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+          >
+            重新加载
+          </button>
+        </div>
+      </div>
+    );
   }
 
   if (!data) {

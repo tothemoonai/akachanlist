@@ -1,0 +1,5 @@
+Total messages: 4 (Errors: 1, Warnings: 0)
+Returning 1 messages for level "error"
+
+Error: Missing required Supabase environment variables. Please check VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.
+    at http://localhost:5174/src/lib/supabase.ts:5:9
