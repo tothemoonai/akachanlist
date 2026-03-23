@@ -168,6 +168,11 @@ export async function fetchProjectData(
   projectSlug: string,
   lang: Language
 ): Promise<ItemsData> {
+  // Check if Supabase is configured
+  if (!supabase) {
+    throw new Error('Supabase is not configured');
+  }
+
   const { data, error } = await supabase
     .from('projects')
     .select(`
