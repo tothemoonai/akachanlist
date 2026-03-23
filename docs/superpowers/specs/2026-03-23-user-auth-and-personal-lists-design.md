@@ -27,7 +27,31 @@ Add user authentication and personal list management capabilities to the multili
 ### Authentication
 - Magic link login (email-based, no password)
 - User session management via Supabase Auth
+- Persistent auth state across page refreshes
 - Login/logout UI in top navigation bar
+
+### Supabase Auth Configuration
+**Required Setup:**
+1. Enable Email Auth in Supabase Dashboard:
+   - Navigate to Authentication → Providers
+   - Enable Email provider
+   - Enable "Enable email confirmations"
+   - Set "Email Template" for magic link
+
+2. Configure Redirect URLs:
+   - In Supabase Dashboard → Authentication → URL Configuration
+   - Add allowed redirect URLs:
+     - Production: `https://akachanlist.vercel.app/**`
+     - Development: `http://localhost:5173/**`
+
+3. Email Settings:
+   - Configure SMTP settings in Supabase Dashboard or use built-in email service
+   - Customize email templates for magic link (optional)
+
+4. Client-Side Handler:
+   - Listen for `#access_token` in URL hash on app load
+   - Exchange token for session using `supabase.auth.getSession()`
+   - Handle auth state changes with `supabase.auth.onAuthStateChange()`
 
 ### Personal List Management
 - Create multiple named lists
@@ -162,6 +186,86 @@ CREATE POLICY "Users can delete items from own lists"
   );
 ```
 
+### Database Migration Details
+
+**Migration file:** `supabase/migrations/003_add_user_lists.sql`
+
+```sql
+-- Migration: Add user authentication and personal lists
+-- Date: 2026-03-23
+-- Depends on: 001_initial_schema.sql, 002_insert_data.sql
+
+-- Note: auth.users table is managed by Supabase Auth
+-- No need to create it manually
+
+-- Create user_lists table
+CREATE TABLE IF NOT EXISTS user_lists (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  description TEXT,
+  is_public BOOLEAN DEFAULT FALSE,
+  share_token UUID UNIQUE DEFAULT gen_random_uuid(),
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+-- Create user_list_items table
+CREATE TABLE IF NOT EXISTS user_list_items (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_list_id UUID NOT NULL REFERENCES user_lists(id) ON DELETE CASCADE,
+  item_id UUID NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  priority TEXT NOT NULL CHECK (priority IN ('required', 'recommended', 'optional')),
+  quantity INTEGER DEFAULT 1 CHECK (quantity > 0 AND quantity <= 99),
+  is_purchased BOOLEAN DEFAULT FALSE,
+  purchased_at TIMESTAMPTZ,
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+
+  UNIQUE(user_list_id, item_id)
+);
+
+-- Create indexes
+CREATE INDEX IF NOT EXISTS idx_user_lists_user ON user_lists(user_id);
+CREATE INDEX IF NOT EXISTS idx_user_lists_share ON user_lists(share_token) WHERE is_public = TRUE;
+CREATE INDEX IF NOT EXISTS idx_user_list_items_list ON user_list_items(user_list_id);
+CREATE INDEX IF NOT EXISTS idx_user_list_items_item ON user_list_items(item_id);
+CREATE INDEX IF NOT EXISTS idx_user_list_items_purchased ON user_list_items(user_list_id, is_purchased);
+
+-- Enable RLS
+ALTER TABLE user_lists ENABLE ROW LEVEL SECURITY;
+ALTER TABLE user_list_items ENABLE ROW LEVEL SECURITY;
+
+-- [RLS policies from previous section]
+
+-- Create updated_at trigger function (if not exists)
+CREATE OR REPLACE FUNCTION update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = NOW();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create triggers for updated_at
+CREATE TRIGGER update_user_lists_updated_at BEFORE UPDATE ON user_lists
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+CREATE TRIGGER update_user_list_items_updated_at BEFORE UPDATE ON user_list_items
+  FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+-- Verification query (run after migration to verify)
+-- SELECT COUNT(*) FROM user_lists; -- Should return 0
+-- SELECT COUNT(*) FROM user_list_items; -- Should return 0
+```
+
+**Migration Execution:**
+1. Go to Supabase Dashboard → SQL Editor
+2. Copy the entire migration file content
+3. Execute the SQL
+4. Verify success by running the verification queries
+5. Check that new tables appear in Table Editor
+
 ---
 
 ## Component Architecture
@@ -207,12 +311,17 @@ CREATE POLICY "Users can delete items from own lists"
 - **State:**
   - `unpurchasedItems: UserListItem[]`
   - `purchasedItems: UserListItem[]`
+  - `loading: boolean`
 - **Behavior:**
-  - Modal overlay
+  - Modal overlay with backdrop
   - Group items by parent list
-  - Toggle purchased status
+  - Toggle purchased status with checkbox
   - Show quantity controls
-  - Reset consumable items
+  - **Reset button** for purchased items:
+    - Moves item from "Purchased" to "To Purchase" section
+    - Sets `is_purchased = false`, `purchased_at = null`
+    - For consumables, allows re-purchasing same item
+  - Loading skeleton while fetching data
 
 #### `CreateListDialog.tsx`
 - **Purpose:** Create new user list
@@ -223,10 +332,29 @@ CREATE POLICY "Users can delete items from own lists"
 - **State:**
   - `name: string`
   - `description: string`
+  - `errors: { name?: string }`
+  - `submitting: boolean`
 - **Behavior:**
   - Modal dialog form
-  - Validate name not empty
-  - Submit creates new list
+  - Validate name not empty and meets validation rules
+  - Show validation errors inline
+  - Disable submit while submitting
+  - Show loading spinner on submit button
+
+#### `ConfirmDialog.tsx` (New)
+- **Purpose:** Generic confirmation dialog for destructive actions
+- **Props:**
+  - `isOpen: boolean`
+  - `title: string`
+  - `message: string`
+  - `confirmLabel?: string` (default: "确认" / "Confirm")
+  - `cancelLabel?: string` (default: "取消" / "Cancel")
+  - `onConfirm: () => void`
+  - `onCancel: () => void`
+- **Behavior:**
+  - Modal overlay with danger color scheme
+  - Used for: delete list, remove item, clear all items
+  - Respects current language setting
 
 #### `ListItemSelector.tsx`
 - **Purpose:** Add items from master list to user list
@@ -246,20 +374,63 @@ CREATE POLICY "Users can delete items from own lists"
 
 #### `UserListContext.tsx`
 - **State:**
-  - `user: User | null` (from Supabase Auth)
-  - `currentList: UserList | null`
-  - `lists: UserList[]`
-  - `listItems: UserListItem[]`
+  - `user: AuthUser | null` (from Supabase Auth)
+  - `session: Session | null` (Supabase session for persistence)
+  - `currentList: SupabaseUserList | null`
+  - `lists: SupabaseUserList[]`
+  - `listItems: SupabaseUserListItem[]`
 - **Functions:**
   - `signIn(email: string): Promise<void>`
   - `signOut(): Promise<void>`
   - `createList(name, description): Promise<void>`
-  - `deleteList(id): Promise<void>`
+  - `deleteList(id): Promise<void>` - Requires confirmation dialog
   - `setCurrentList(id): void`
   - `addItem(listId, itemId, priority, quantity): Promise<void>`
-  - `removeItem(listItemId): Promise<void>`
+  - `removeItem(listItemId): Promise<void>` - Requires confirmation dialog
   - `updateItem(listItemId, priority, quantity): Promise<void>`
   - `togglePurchased(listItemId): Promise<void>`
+  - `resetPurchasedItem(listItemId): Promise<void>` - Move from purchased to unpurchased
+
+#### Context Integration Pattern
+
+```typescript
+// App.tsx context provider hierarchy
+<ErrorBoundary>
+  <LanguageProvider>
+    <QueryClientProvider> {/* React Query */}
+      <UserListProvider> {/* New: User auth and lists */}
+        <Home />
+      </UserListProvider>
+    </QueryClientProvider>
+  </LanguageProvider>
+</ErrorBoundary>
+
+// UserListProvider uses React Query internally for data fetching
+// UserListContext provides domain-specific functions that wrap React Query hooks
+```
+
+#### Auth State Persistence
+
+```typescript
+// In UserListProvider or App initialization
+useEffect(() => {
+  // Check for existing session on mount
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    setSession(session);
+    setUser(session?.user ?? null);
+  });
+
+  // Listen for auth state changes
+  const { data: { subscription } } = supabase.auth.onAuthStateChange(
+    (_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+    }
+  );
+
+  return () => subscription.unsubscribe();
+}, []);
+```
 
 ---
 
@@ -371,6 +542,25 @@ CREATE POLICY "Users can delete items from own lists"
 └────────────────────────────────────┘
 ```
 
+### Floating Button Placement (Mobile Consideration)
+
+**Desktop:** Bottom-right corner (20px from right, 20px from bottom)
+
+**Mobile (> iOS Safari, Chrome Mobile compatibility):**
+- **Option A:** Bottom-right but with safe area padding
+  - `padding-bottom: env(safe-area-inset-bottom)`
+  - Minimum 16px from bottom + safe area
+- **Option B:** Fixed in top navigation bar instead
+  - More consistent with mobile browser UI patterns
+  - Avoids conflicts with mobile navigation bars
+
+**Recommendation:** Use **Option A** with safe area padding and test on:
+- iOS Safari (bottom toolbar)
+- Chrome Android (bottom navigation bar)
+- Samsung Internet browser
+
+**Fallback:** If testing reveals conflicts, move to top navigation bar.
+
 ---
 
 ## Error Handling
@@ -391,6 +581,68 @@ CREATE POLICY "Users can delete items from own lists"
 - **Empty list state:** Show friendly message + "Add items" CTA
 - **Network timeout:** Show loading indicator + retry option
 - **Permission denied:** Show "You don't have access" message
+
+### Input Validation
+
+**Email Validation:**
+```typescript
+const validateEmail = (email: string): boolean => {
+  return VALIDATION_RULES.EMAIL.PATTERN.test(email);
+};
+```
+- Show error: "请输入有效的邮箱地址" / "Please enter a valid email"
+
+**List Name Validation:**
+```typescript
+const validateListName = (name: string): { valid: boolean; error?: string } => {
+  if (name.length < VALIDATION_RULES.LIST_NAME.MIN_LENGTH) {
+    return { valid: false, error: '清单名称不能为空' };
+  }
+  if (name.length > VALIDATION_RULES.LIST_NAME.MAX_LENGTH) {
+    return { valid: false, error: '清单名称不能超过100个字符' };
+  }
+  if (!VALIDATION_RULES.LIST_NAME.PATTERN.test(name)) {
+    return { valid: false, error: '清单名称包含非法字符' };
+  }
+  return { valid: true };
+};
+```
+
+**Quantity Validation:**
+```typescript
+const validateQuantity = (qty: number): boolean => {
+  return qty >= VALIDATION_RULES.QUANTITY.MIN
+    && qty <= VALIDATION_RULES.QUANTITY.MAX;
+};
+```
+- Min: 1, Max: 99
+- Show error: "数量必须在1-99之间"
+
+### Mobile UX Guidelines
+
+**Touch Interactions:**
+- **Minimum touch target:** 44x44px (iOS HIG guideline)
+- **Swipe gestures:**
+  - Swipe right on sidebar: Close drawer
+  - Swipe left on main content: Open drawer (optional)
+- **Long press:** Show context menu for items (Edit, Remove)
+
+**Sidebar Drawer on Mobile:**
+- Full-screen width on small screens (< 640px)
+- Overlay with backdrop
+- Swipe to close support
+- Back button closes drawer
+
+**Shopping List Modal on Mobile:**
+- Full-screen height
+- Sticky header with close button
+- Scrollable content area
+- Larger checkboxes for touch (44x44px min)
+
+**Responsive Breakpoints:**
+- Mobile: < 640px (full-screen modals)
+- Tablet: 640px - 1024px (centered modals, 90% max-width)
+- Desktop: > 1024px (fixed-width modals, 600px)
 
 ---
 
@@ -426,6 +678,55 @@ useQuery(['shoppingList'], fetchShoppingList, {
 - Add/remove item: Update UI immediately, sync in background
 - Toggle purchased: Update immediately, sync on success
 - Revert on failure with notification
+
+### Offline Strategy and Loading States
+
+**localStorage Fallback:**
+```typescript
+// When Supabase connection fails, sync to localStorage
+const saveToLocal = (key: string, data: any) => {
+  try {
+    localStorage.setItem(`akachanlist_${key}`, JSON.stringify(data));
+  } catch (e) {
+    console.error('localStorage save failed:', e);
+  }
+};
+
+// On app load, check for unsynced local changes
+const loadFromLocal = (key: string) => {
+  try {
+    const data = localStorage.getItem(`akachanlist_${key}`);
+    return data ? JSON.parse(data) : null;
+  } catch (e) {
+    return null;
+  }
+};
+```
+
+**Conflict Resolution:**
+- Last-write-wins for simple conflicts
+- Show user notification: "本地更改已同步" / "Local changes synced"
+- Offline changes queue and sync when connection restored
+
+**Loading States:**
+- **Skeleton screens** for lists and items (gray placeholder boxes)
+- **Spinners** for button actions (add, remove, update)
+- **Progress indicators** for initial data load
+- **Optimistic UI** updates with rollback on failure
+
+**Network Status Detection:**
+```typescript
+// Listen for online/offline events
+useEffect(() => {
+  const handleOnline = () => {
+    // Sync queued changes
+    syncLocalChanges();
+  };
+
+  window.addEventListener('online', handleOnline);
+  return () => window.removeEventListener('online', handleOnline);
+}, []);
+```
 
 ---
 
@@ -535,8 +836,20 @@ None at this time.
 
 ## Appendix: Data Types
 
+### TypeScript Type Definitions
+
 ```typescript
-interface UserList {
+// Extend existing types in src/types/index.ts
+
+// Supabase auth user type
+export interface AuthUser {
+  id: string;
+  email: string;
+  created_at: string;
+}
+
+// User list - aligns with Supabase naming convention
+export interface SupabaseUserList {
   id: string;
   user_id: string;
   name: string;
@@ -547,7 +860,8 @@ interface UserList {
   updated_at: string;
 }
 
-interface UserListItem {
+// User list item with item details joined
+export interface SupabaseUserListItem {
   id: string;
   user_list_id: string;
   item_id: string;
@@ -557,11 +871,56 @@ interface UserListItem {
   purchased_at?: string;
   created_at: string;
   updated_at: string;
+  // Joined from items table
+  item?: {
+    id: string;
+    name_zh: string;
+    name_ja: string;
+    description_zh?: string;
+    description_ja?: string;
+  };
 }
 
-interface User {
-  id: string;
-  email: string;
-  created_at: string;
+// Enriched user list with item count
+export interface UserListWithStats extends SupabaseUserList {
+  total_items: number;
+  purchased_items: number;
 }
+
+// Shopping list item grouped by list
+export interface ShoppingListGroup {
+  list_id: string;
+  list_name: string;
+  items: SupabaseUserListItem[];
+}
+
+// Form types
+export interface CreateListForm {
+  name: string;
+  description?: string;
+}
+
+export interface UpdateListItemForm {
+  priority?: 'required' | 'recommended' | 'optional';
+  quantity?: number;
+}
+
+// Validation rules
+export const VALIDATION_RULES = {
+  LIST_NAME: {
+    MIN_LENGTH: 1,
+    MAX_LENGTH: 100,
+    PATTERN: /^[^<>{}$]*$/, // No special characters
+  },
+  LIST_DESCRIPTION: {
+    MAX_LENGTH: 500,
+  },
+  EMAIL: {
+    PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  },
+  QUANTITY: {
+    MIN: 1,
+    MAX: 99,
+  },
+} as const;
 ```
