@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useUserList } from '../contexts/UserListContext';
 import { AuthButton } from './user/AuthButton';
-import { Menu, Baby } from 'lucide-react';
+import { Menu, Baby, ShoppingCart } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ListSidebar } from './user/ListSidebar';
 import { ShoppingListView } from './user/ShoppingListView';
@@ -40,6 +40,7 @@ export function Header({ title, subtitle }: HeaderProps) {
                   <button
                     onClick={() => setShowSidebar(true)}
                     className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    aria-label={language === 'zh' ? '我的清单' : 'マイリスト'}
                   >
                     <Menu className="w-4 h-4" />
                     <span className="hidden sm:inline">
@@ -50,20 +51,9 @@ export function Header({ title, subtitle }: HeaderProps) {
                   <button
                     onClick={() => setShowShoppingList(true)}
                     className="relative p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    aria-label={language === 'zh' ? '购物清单' : 'ショッピングリスト'}
                   >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                      />
-                    </svg>
+                    <ShoppingCart className="w-6 h-6" />
                   </button>
                 </>
               )}
