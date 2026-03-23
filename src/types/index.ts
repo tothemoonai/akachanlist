@@ -152,6 +152,32 @@ export interface ShoppingListGroup {
   items: SupabaseUserListItem[];
 }
 
+// Shopping list group with relations (used in ShoppingListView)
+export interface ShoppingListGroupWithRelations {
+  list_id: string;
+  list_name: string;
+  items: Array<{
+    id: string;
+    user_list_id: string;
+    item_id: string;
+    priority: 'required' | 'recommended' | 'optional';
+    quantity: number;
+    is_purchased: boolean;
+    purchased_at?: string;
+    created_at: string;
+    updated_at: string;
+    user_lists: {
+      id: string;
+      name: string;
+    };
+    item: {
+      id: string;
+      name_zh: string;
+      name_ja: string;
+    } | null;
+  }>;
+}
+
 // Form types
 export interface CreateListForm {
   name: string;

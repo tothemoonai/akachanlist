@@ -11,7 +11,7 @@ interface ListItemSelectorProps {
   itemId: string; // UUID from Supabase items table
 }
 
-export function ListItemSelector({ item, itemId }: ListItemSelectorProps) {
+export function ListItemSelector({ itemId }: ListItemSelectorProps) {
   const { user, currentList, listItems, addItem, removeItem, updateItem } = useUserList();
   const { language } = useLanguage();
   const [expanded, setExpanded] = useState(false);
