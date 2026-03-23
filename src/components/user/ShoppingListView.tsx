@@ -1,12 +1,45 @@
+import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { X, ShoppingCart, Check, RotateCcw } from 'lucide-react';
 import { useUserList } from '../../contexts/UserListContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { supabase } from '../../lib/supabase';
+import { SupabaseUserListItem, ShoppingListGroup } from '../../types';
 
 interface ShoppingListViewProps {
   isOpen: boolean;
   onClose: () => void;
+}
+
+// Type for joined data from Supabase query
+interface UserListItemWithRelations extends SupabaseUserListItem {
+  user_lists: {
+    id: string;
+    name: string;
+  };
+  item: {
+    id: string;
+    name_zh: string;
+    name_ja: string;
+  } | null;
+}
+
+const STALE_TIME = 2 * 60 * 1000; // 2 minutes
+
+// Helper function to group items by list
+function groupItemsByList(items: UserListItemWithRelations[]): Record<string, ShoppingListGroup> {
+  return items.reduce((acc, item) => {
+    const listId = item.user_list_id;
+    if (!acc[listId]) {
+      acc[listId] = {
+        list_id: listId,
+        list_name: item.user_lists.name,
+        items: [],
+      };
+    }
+    acc[listId].items.push(item);
+    return acc;
+  }, {} as Record<string, ShoppingListGroup>);
 }
 
 export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
@@ -26,46 +59,29 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
         .order('user_list_items.created_at', { ascending: true });
 
       if (error) throw error;
-      return data;
+      return data as UserListItemWithRelations[];
     },
     enabled: isOpen && !!user,
-    staleTime: 2 * 60 * 1000, // 2 minutes
+    staleTime: STALE_TIME,
   });
 
   // Group items by list and separate purchased/unpurchased
-  const unpurchasedGroups = allItems
-    .filter(item => !item.is_purchased)
-    .reduce((acc, item) => {
-      const listId = item.user_list_id;
-      if (!acc[listId]) {
-        acc[listId] = {
-          list_id: listId,
-          list_name: (item.user_lists as any).name,
-          items: [],
-        };
-      }
-      acc[listId].items.push(item);
-      return acc;
-    }, {} as Record<string, { list_id: string; list_name: string; items: any[] }>);
+  const unpurchasedGroups = useMemo(
+    () => groupItemsByList(allItems.filter(item => !item.is_purchased)),
+    [allItems]
+  );
 
-  const purchasedGroups = allItems
-    .filter(item => item.is_purchased)
-    .reduce((acc, item) => {
-      const listId = item.user_list_id;
-      if (!acc[listId]) {
-        acc[listId] = {
-          list_id: listId,
-          list_name: (item.user_lists as any).name,
-          items: [],
-        };
-      }
-      acc[listId].items.push(item);
-      return acc;
-    }, {} as Record<string, { list_id: string; list_name: string; items: any[] }>);
+  const purchasedGroups = useMemo(
+    () => groupItemsByList(allItems.filter(item => item.is_purchased)),
+    [allItems]
+  );
 
-  const unpurchasedCount = Object.values(unpurchasedGroups).reduce(
-    (sum, group) => sum + group.items.length,
-    0
+  const unpurchasedCount = useMemo(() =>
+    Object.values(unpurchasedGroups).reduce(
+      (sum, group) => sum + group.items.length,
+      0
+    ),
+    [unpurchasedGroups]
   );
 
   if (!isOpen) return null;
@@ -133,7 +149,7 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
                           {group.list_name}
                         </p>
                         <div className="space-y-2">
-                          {group.items.map((item: any) => (
+                          {group.items.map((item: UserListItemWithRelations) => (
                             <div
                               key={item.id}
                               className="flex items-center gap-3 p-2 bg-white border rounded-lg hover:bg-gray-50 transition-colors"
@@ -144,7 +160,9 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
                               />
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-gray-900">
-                                  {language === 'zh' ? item.items?.name_zh : item.items?.name_ja}
+                                  {language === 'zh'
+                                    ? (item.item?.name_zh || '无名称')
+                                    : (item.item?.name_ja || '名前なし')}
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {language === 'zh' ? '数量' : '数量'}: {item.quantity}
@@ -172,7 +190,7 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
                           {group.list_name}
                         </p>
                         <div className="space-y-2">
-                          {group.items.map((item: any) => (
+                          {group.items.map((item: UserListItemWithRelations) => (
                             <div
                               key={item.id}
                               className="flex items-center gap-3 p-2 bg-gray-50 border rounded-lg"
@@ -182,7 +200,9 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
                               </div>
                               <div className="flex-1 min-w-0">
                                 <p className="text-sm font-medium text-gray-900 line-through">
-                                  {language === 'zh' ? item.items?.name_zh : item.items?.name_ja}
+                                  {language === 'zh'
+                                    ? (item.item?.name_zh || '无名称')
+                                    : (item.item?.name_ja || '名前なし')}
                                 </p>
                                 <p className="text-xs text-gray-500">
                                   {language === 'zh' ? '数量' : '数量'}: {item.quantity}
