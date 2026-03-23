@@ -576,10 +576,7 @@ export function UserListProvider({ children }: { children: ReactNode }) {
       if (error) {
         // Handle unique constraint violation (item already in list)
         if (error.code === '23505') {
-          const errorMessage = language === 'zh'
-            ? '该物品已在清单中'
-            : 'このアイテムはすでにリストにあります';
-          throw new Error(errorMessage);
+          throw new Error('该物品已在清单中 / This item is already in the list');
         }
         throw error;
       }
