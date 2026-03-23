@@ -93,3 +93,90 @@ export interface ItemsData {
   };
   categories: Category[];
 }
+
+// ============================================
+// User Authentication & Personal Lists Types
+// ============================================
+
+// Supabase auth user type
+export interface AuthUser {
+  id: string;
+  email: string;
+  created_at: string;
+}
+
+// User list from Supabase
+export interface SupabaseUserList {
+  id: string;
+  user_id: string;
+  name: string;
+  description?: string;
+  is_public: boolean;
+  share_token?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+// User list item with joined item details
+export interface SupabaseUserListItem {
+  id: string;
+  user_list_id: string;
+  item_id: string;
+  priority: 'required' | 'recommended' | 'optional';
+  quantity: number;
+  is_purchased: boolean;
+  purchased_at?: string;
+  created_at: string;
+  updated_at: string;
+  // Joined from items table
+  item?: {
+    id: string;
+    name_zh: string;
+    name_ja: string;
+    description_zh?: string;
+    description_ja?: string;
+  };
+}
+
+// Enriched user list with stats
+export interface UserListWithStats extends SupabaseUserList {
+  total_items: number;
+  purchased_items: number;
+}
+
+// Shopping list grouped by parent list
+export interface ShoppingListGroup {
+  list_id: string;
+  list_name: string;
+  items: SupabaseUserListItem[];
+}
+
+// Form types
+export interface CreateListForm {
+  name: string;
+  description?: string;
+}
+
+export interface UpdateListItemForm {
+  priority?: 'required' | 'recommended' | 'optional';
+  quantity?: number;
+}
+
+// Validation rules
+export const VALIDATION_RULES = {
+  LIST_NAME: {
+    MIN_LENGTH: 1,
+    MAX_LENGTH: 100,
+    PATTERN: /^[^<>{}$]*$/,
+  },
+  LIST_DESCRIPTION: {
+    MAX_LENGTH: 500,
+  },
+  EMAIL: {
+    PATTERN: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+  },
+  QUANTITY: {
+    MIN: 1,
+    MAX: 99,
+  },
+} as const;
