@@ -21,7 +21,7 @@ export function useProjectData(projectSlug: string) {
     gcTime: 30 * 60 * 1000, // 30分钟
     retry: (failureCount, error) => {
       // Supabase 错误不重试，直接降级到本地数据
-      if (error instanceof Error && error.message.includes('Supabase')) {
+      if (error?.message?.includes('Supabase')) {
         return false;
       }
       return failureCount < 2;
