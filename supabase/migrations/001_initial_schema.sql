@@ -9,7 +9,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Projects Table
 -- ============================================
 CREATE TABLE projects (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   slug TEXT UNIQUE NOT NULL,
   name_zh TEXT NOT NULL,
   name_ja TEXT NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE projects (
 -- Categories Table
 -- ============================================
 CREATE TABLE categories (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   project_id UUID NOT NULL REFERENCES projects(id) ON DELETE CASCADE,
   slug TEXT NOT NULL,
   name_zh TEXT NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE categories (
 -- Subcategories Table
 -- ============================================
 CREATE TABLE subcategories (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   category_id UUID NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
   slug TEXT NOT NULL,
   name_zh TEXT NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE subcategories (
 -- Items Table
 -- ============================================
 CREATE TABLE items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   subcategory_id UUID NOT NULL REFERENCES subcategories(id) ON DELETE CASCADE,
   name_zh TEXT NOT NULL,
   name_ja TEXT NOT NULL,
