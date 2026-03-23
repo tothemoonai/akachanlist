@@ -36,8 +36,6 @@
 
 **Hooks:**
 - `src/hooks/useAuth.ts` - Hook for Supabase Auth state management
-- `src/hooks/useUserLists.ts` - Hook for fetching and mutating user lists
-- `src/hooks/useShoppingList.ts` - Hook for shopping list data
 
 ### Files to Modify
 
@@ -356,13 +354,13 @@ git commit -m "feat: add input validation utilities"
 
 ```typescript
 import { useState, useEffect } from 'react';
-import { User } from '@supabase/supabase-js';
+import { Session } from '@supabase/supabase-js';
 import { supabase } from '../lib/supabase';
 import { AuthUser } from '../types';
 
 export function useAuth() {
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [session, setSession] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -575,7 +573,16 @@ export function UserListProvider({ children }: { children: ReactNode }) {
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        // Handle unique constraint violation (item already in list)
+        if (error.code === '23505') {
+          const errorMessage = language === 'zh'
+            ? '该物品已在清单中'
+            : 'このアイテムはすでにリストにあります';
+          throw new Error(errorMessage);
+        }
+        throw error;
+      }
       return data;
     },
     onSuccess: () => {
@@ -1959,16 +1966,26 @@ git commit -m "feat: integrate auth and list management UI into Header"
 
 **Files:**
 - Modify: `src/components/ItemCard.tsx`
+- Modify: `src/components/CategorySection.tsx`
 
-- [ ] **Step 1: Add ListItemSelector to ItemCard**
+- [ ] **Step 1: Read current ItemCard structure**
 
-First, read the current ItemCard to see its structure, then add the selector. You'll need to pass the Supabase item ID to the selector.
+```bash
+cat src/components/ItemCard.tsx
+```
+
+Current ItemCard has this structure:
+- Receives `item` prop with name, priority, description, quantity, notes
+- Displays item information in a card layout
+- Shows priority badge
+
+- [ ] **Step 2: Add ListItemSelector to ItemCard**
+
+Update `src/components/ItemCard.tsx`:
 
 ```typescript
-// Add this import at the top
 import { ListItemSelector } from './user/ListItemSelector';
 
-// In the ItemCard component, add a new prop for itemId
 interface ItemCardProps {
   item: {
     name: string;
@@ -1978,23 +1995,91 @@ interface ItemCardProps {
     notes?: string;
   };
   itemId?: string; // NEW: Supabase UUID
-  // ... existing props
 }
 
-// In the return statement, add ListItemSelector after the item details
-<div className="flex justify-end">
-  <ListItemSelector item={item} itemId={itemId || ''} />
-</div>
+export function ItemCard({ item, itemId }: ItemCardProps) {
+  // ... existing code ...
+
+  return (
+    <div className="bg-white rounded-lg shadow p-4">
+      {/* Existing item display code */}
+
+      {/* ADD THIS: ListItemSelector at the bottom of the card */}
+      {itemId && (
+        <div className="mt-4 pt-4 border-t">
+          <ListItemSelector item={item} itemId={itemId} />
+        </div>
+      )}
+    </div>
+  );
+}
 ```
 
-- [ ] **Step 2: Update CategorySection to pass item IDs**
+- [ ] **Step 3: Update data fetching to include item IDs**
 
-Modify `src/components/CategorySection.tsx` to pass item IDs when rendering ItemCard.
+The challenge is that items from Supabase need their UUIDs passed to ItemCard. Update `src/hooks/useProjectData.ts`:
 
-- [ ] **Step 3: Commit ItemCard changes**
+```typescript
+// In the data transformation, add a map of item names to IDs
+// This will require modifying the fetch to include IDs from Supabase
+
+// Or, simpler: Update CategorySection to pass IDs when available
+```
+
+- [ ] **Step 4: Alternative approach - fetch items with IDs**
+
+Modify `src/utils/data.ts` to preserve Supabase item IDs:
+
+```typescript
+// When transforming Supabase data to app format, include the id
+export function transformData(data: SupabaseProjectResponse, lang: Language): ItemsData {
+  return {
+    meta: {
+      title: lang === 'zh' ? data.name_zh : data.name_ja,
+      subtitle: lang === 'zh' ? data.description_zh : data.description_ja,
+      lastUpdated: new Date().toLocaleDateString(lang === 'zh' ? 'zh-CN' : 'ja-JP'),
+    },
+    categories: data.categories.map((category) => ({
+      id: category.id, // Keep Supabase UUID
+      title: lang === 'zh' ? category.name_zh : category.name_ja,
+      icon: category.icon,
+      subcategories: category.subcategories.map((subcategory) => ({
+        id: subcategory.id,
+        title: lang === 'zh' ? subcategory.name_zh : subcategory.name_ja,
+        description: lang === 'zh' ? subcategory.description_zh : subcategory.description_ja,
+        items: subcategory.items.map((item) => ({
+          name: lang === 'zh' ? item.name_zh : item.name_ja,
+          priority: item.priority,
+          description: lang === 'zh' ? item.description_zh : item.description_ja,
+          quantity: lang === 'zh' ? item.quantity_zh : item.quantity_ja,
+          notes: lang === 'zh' ? item.notes_zh : item.notes_ja,
+          id: item.id, // ADD THIS: Include Supabase item ID
+        })),
+      })),
+    })),
+  };
+}
+```
+
+- [ ] **Step 5: Update types to include id**
+
+Modify `src/types/index.ts`:
+
+```typescript
+export interface Item {
+  id?: string; // ADD THIS: Supabase UUID (optional for backward compatibility)
+  name: string;
+  priority: Priority;
+  description?: string;
+  quantity?: string;
+  notes?: string;
+}
+```
+
+- [ ] **Step 6: Commit ItemCard changes**
 
 ```bash
-git add src/components/ItemCard.tsx src/components/CategorySection.tsx
+git add src/components/ItemCard.tsx src/components/CategorySection.tsx src/utils/data.ts src/types/index.ts
 git commit -m "feat: add ListItemSelector to ItemCard for adding items to user lists"
 ```
 
@@ -2027,7 +2112,19 @@ git commit -m "feat: add current list indicator to Home page"
 3. Paste and execute
 4. Verify success with: `SELECT COUNT(*) FROM user_lists;` (should return 0)
 
-- [ ] **Step 2: Update environment variables (if needed)**
+- [ ] **Step 2: Configure Supabase Auth**
+
+Before testing authentication, verify Supabase Auth is properly configured:
+
+1. Go to https://supabase.com/dashboard/project/wnyrinifinvgagbtlpwb/auth/templates
+2. Verify "Email Provider" is enabled
+3. Check "Email Templates" → "Magic Link" / "Email Link"
+4. Verify redirect URLs include:
+   - Production: `https://akachanlist.vercel.app/**`
+   - Development: `http://localhost:5173/**`
+5. Test email delivery by sending a test magic link (if available)
+
+- [ ] **Step 3: Update environment variables (if needed)**
 
 Ensure `.env.local` has correct Supabase URL and anon key.
 
