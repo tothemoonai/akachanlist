@@ -13,7 +13,11 @@ export function useAuth() {
     const initAuth = async () => {
       const { data: { session } } = await supabase?.auth.getSession();
       setSession(session ?? null);
-      setUser(session?.user ?? null);
+      setUser(session?.user ? {
+        id: session.user.id,
+        email: session.user.email || '',
+        created_at: session.user.created_at
+      } : null);
       setLoading(false);
     };
 
@@ -23,7 +27,11 @@ export function useAuth() {
     const { data: { subscription } } = supabase?.auth.onAuthStateChange(
       (_event, session) => {
         setSession(session ?? null);
-        setUser(session?.user ?? null);
+        setUser(session?.user ? {
+          id: session.user.id,
+          email: session.user.email || '',
+          created_at: session.user.created_at
+        } : null);
       }
     ) ?? { data: { subscription: null } };
 
@@ -54,8 +62,6 @@ export function useAuth() {
   const signOut = async (): Promise<void> => {
     if (!supabase) return;
     await supabase.auth.signOut();
-    setUser(null);
-    setSession(null);
   };
 
   return {
