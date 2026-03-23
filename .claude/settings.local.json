@@ -65,7 +65,19 @@
       "Bash(supabase status:*)",
       "Bash(npx supabase-orgs:*)",
       "Bash(npx -y env-cmd npx supabase-orgs --org-id hdzhjtaakqxnuzlgolux --token \"$SUPABASE_ACCESS_TOKEN\" projects show wnyrinifinvgagbtlpwb --output json 2>/dev/null | grep -o '\"service_key\":\"[^\"]*\"' | cut -d'\"' -f4 || echo \"Alternative method needed\")",
-      "Bash(curl -s http://localhost:5177/ | grep -o \"<title>[^<]*</title>\")"
+      "Bash(curl -s http://localhost:5177/ | grep -o \"<title>[^<]*</title>\")",
+      "Bash(npx vercel:*)",
+      "Bash(find /c/ClaudeCodeProject/akachanlist/docs -type f -name \"*.md\" 2>/dev/null | head -20)",
+      "Bash(vercel --version)",
+      "Bash(vercel whoami:*)",
+      "Bash(vercel --prod --scope tothemoonais-projects)",
+      "WebSearch",
+      "Bash(vercel env:*)",
+      "Bash(vercel ls:*)",
+      "Bash(vercel --prod --scope tothemoonais-projects --yes)",
+      "Bash(vercel inspect:*)",
+      "Bash(ls -la *.md 2>/dev/null | grep -v node_modules)",
+      "Bash(ls -la docs/*.md)"
     ]
   }
 }
