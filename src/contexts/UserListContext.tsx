@@ -52,7 +52,7 @@ export function UserListProvider({ children }: { children: ReactNode }) {
 
       const { data, error } = await supabase
         .from('user_list_items')
-        .select('*, items(id, name_zh, name_ja, description_zh, description_ja)')
+        .select('*, item(id, name_zh, name_ja, description_zh, description_ja)')
         .eq('user_list_id', currentList.id)
         .order('created_at', { ascending: true });
 
@@ -213,6 +213,24 @@ export function UserListProvider({ children }: { children: ReactNode }) {
     },
   });
 
+  // Reset purchased item mutation
+  const resetPurchasedMutation = useMutation({
+    mutationFn: async (listItemId: string) => {
+      if (!supabase) throw new Error('Supabase not configured');
+      const { error } = await supabase
+        .from('user_list_items')
+        .update({
+          is_purchased: false,
+          purchased_at: null,
+        })
+        .eq('id', listItemId);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['listItems'] });
+    },
+  });
+
   const createList = useCallback(async (data: CreateListForm) => {
     await createListMutation.mutateAsync(data);
   }, [createListMutation]);
@@ -247,18 +265,8 @@ export function UserListProvider({ children }: { children: ReactNode }) {
   }, [togglePurchasedMutation]);
 
   const resetPurchasedItem = useCallback(async (listItemId: string) => {
-    if (!supabase) return;
-    const { error } = await supabase
-      .from('user_list_items')
-      .update({
-        is_purchased: false,
-        purchased_at: null,
-      })
-      .eq('id', listItemId);
-
-    if (error) throw error;
-    queryClient.invalidateQueries({ queryKey: ['listItems'] });
-  }, [queryClient, supabase]);
+    await resetPurchasedMutation.mutateAsync(listItemId);
+  }, [resetPurchasedMutation]);
 
   return (
     <UserListContext.Provider
