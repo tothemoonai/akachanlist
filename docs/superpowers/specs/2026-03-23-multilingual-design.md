@@ -292,7 +292,6 @@ export function useLanguage() {
   return context;
 }
 ```
-```
 
 ### 2. 数据获取
 
@@ -377,6 +376,8 @@ export async function fetchProjectData(
   lang: Language
 ): Promise<ItemsData> {
   const langField = lang === 'zh' ? 'name_zh' : 'name_ja';
+
+  const { data, error } = await supabase
 
   const { data, error } = await supabase
     .from('projects')
@@ -513,7 +514,6 @@ function App() {
 
 export default App;
 ```
-```
 
 ### 3. UI 组件
 
@@ -523,6 +523,10 @@ export default App;
 
 ```typescript
 // components/LanguageSwitcher.tsx
+import React from 'react';
+import { Languages } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
+
 export const LanguageSwitcher: React.FC = () => {
   const { language, setLanguage } = useLanguage();
 
@@ -573,17 +577,111 @@ export const Header: React.FC<HeaderProps> = ({ title, subtitle }) => {
 
 ### 4. 错误处理
 
+#### LoadingSpinner 组件
+
+显示加载状态：
+
+```typescript
+// components/LoadingSpinner.tsx
+import React from 'react';
+
+export const LoadingSpinner: React.FC = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+        <p className="text-gray-600">加载中...</p>
+      </div>
+    </div>
+  );
+};
+```
+
+#### ErrorMessage 组件
+
+显示错误信息：
+
+```typescript
+// components/ErrorMessage.tsx
+import React from 'react';
+
+export const ErrorMessage: React.FC = () => {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="text-center p-8">
+        <h2 className="text-xl font-bold text-gray-800 mb-4">
+          加载数据时出错
+        </h2>
+        <p className="text-gray-600 mb-4">
+          请检查您的网络连接或稍后重试
+        </p>
+        <button
+          onClick={() => window.location.reload()}
+          className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+        >
+          重新加载
+        </button>
+      </div>
+    </div>
+  );
+};
+```
+
 #### ErrorBoundary
 
 捕获运行时错误：
 
 ```typescript
 // components/ErrorBoundary.tsx
-export class ErrorBoundary extends React.Component<
-  { children: ReactNode },
-  { hasError: boolean; error: Error | null }
-> {
-  // ... 实现
+import React, { Component, ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+}
+
+interface State {
+  hasError: boolean;
+  error: Error | null;
+}
+
+export class ErrorBoundary extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    console.error('Error caught by ErrorBoundary:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+          <div className="text-center p-8">
+            <h2 className="text-xl font-bold text-gray-800 mb-4">
+              应用出错了
+            </h2>
+            <p className="text-gray-600 mb-4">
+              {this.state.error?.message || '未知错误'}
+            </p>
+            <button
+              onClick={() => window.location.reload()}
+              className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            >
+              重新加载
+            </button>
+          </div>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
 }
 ```
 
@@ -593,7 +691,9 @@ Supabase 失败时使用本地 JSON：
 
 ```typescript
 // utils/fallback.ts
-async function fetchLocalData(lang: 'zh' | 'ja'): Promise<ItemsData> {
+import { ItemsData, Language } from '../types';
+
+export async function fetchLocalData(lang: Language): Promise<ItemsData> {
   const response = await fetch(`/data/items-${lang}.json`);
   if (!response.ok) throw new Error('Failed to load local data');
   return response.json();
@@ -730,13 +830,45 @@ export SUPABASE_SERVICE_KEY=your-service-key
 npx tsx scripts/migrate-to-supabase.ts
 ```
 
-### 翻译处理
+### 翻译处理策略
 
-脚本中的日语字段需要手动翻译或使用翻译 API：
+**决策**：使用**选项 2（AI 翻译）+ 人工校验**的方式。
 
-**选项 1**: 手动翻译后直接在 Supabase Dashboard 编辑
-**选项 2**: 使用 AI 翻译 API 自动生成初始翻译
-**选项 3**: 从原始日语网站 `.firecrawl/akachan-page.md` 提取数据
+**实施步骤**：
+1. 运行初始迁移脚本，将所有日语字段设置为与中文相同的值
+2. 创建翻译脚本，使用 Anthropic Claude API 批量翻译日语字段
+3. 在 Supabase Dashboard 中人工校验和修正关键翻译
+4. 对于专业术语（如"哺乳文胸"、"产褥垫"等）保留专业翻译
+
+**翻译脚本示例**：
+
+```typescript
+// scripts/translate-japanese.ts
+import { createClient } from '@supabase/supabase-js';
+import Anthropic from '@anthropic-ai/sdk';
+
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY
+});
+
+const supabase = createClient(
+  process.env.SUPABASE_URL!,
+  process.env.SUPABASE_SERVICE_KEY!
+);
+
+async function translateToJapanese(text: string): Promise<string> {
+  const response = await anthropic.messages.create({
+    model: 'claude-3-5-sonnet-20241022',
+    max_tokens: 1000,
+    messages: [{
+      role: 'user',
+      content: `Translate this Chinese text to natural Japanese (母国語レベル):\n\n${text}`
+    }]
+  });
+
+  return response.content[0].type === 'text' ? response.content[0].text : text;
+}
+```
 
 ### 环境变量
 
@@ -744,7 +876,34 @@ npx tsx scripts/migrate-to-supabase.ts
 # .env.local
 VITE_SUPABASE_URL=your-supabase-url
 VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
+
+# 验证必需的环境变量
+if (!import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+  throw new Error('Missing required Supabase environment variables');
+}
 ```
+
+### 可访问性考虑
+
+为确保多语言功能对所有用户友好：
+
+1. **HTML lang 属性**
+   ```typescript
+   useEffect(() => {
+     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'ja';
+   }, [language]);
+   ```
+
+2. **ARIA 标签**
+   - 语言切换器使用 `aria-label="Switch language"`
+   - 添加 `aria-live="polite"` 在内容更新时通知屏幕阅读器
+
+3. **焦点管理**
+   - 切换语言后焦点保持在切换按钮上
+   - 避免意外的焦点移动
+
+4. **屏幕阅读器支持**
+   - 语言切换时添加屏幕阅读器通知（可选）
 
 ## 依赖项
 
