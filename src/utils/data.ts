@@ -67,6 +67,7 @@ function transformItem(rawItem: SupabaseItem, lang: Language): Item {
   const notes = rawItem[`notes_${lang}`] || rawItem.notes_zh;
 
   return {
+    id: rawItem.id, // Preserve Supabase UUID
     name,
     priority: rawItem.priority,
     description,

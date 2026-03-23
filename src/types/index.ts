@@ -64,6 +64,7 @@ export interface LanguageContextType {
 export type Priority = 'required' | 'recommended';
 
 export interface Item {
+  id?: string; // Supabase UUID (optional for backward compatibility)
   name: string;
   priority: Priority;
   description?: string;

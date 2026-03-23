@@ -1,6 +1,7 @@
 import React from 'react';
 import { Item } from '../types';
 import { getPriorityLabel, getPriorityColor } from '../utils/data';
+import { ListItemSelector } from './user/ListItemSelector';
 
 interface ItemCardProps {
   item: Item;
@@ -35,6 +36,13 @@ export const ItemCard: React.FC<ItemCardProps> = ({ item }) => {
 
       {item.notes && (
         <p className="text-xs text-gray-400 mt-2 italic">{item.notes}</p>
+      )}
+
+      {/* ListItemSelector when item has ID */}
+      {item.id && (
+        <div className="mt-4 pt-4 border-t border-gray-200">
+          <ListItemSelector item={item} itemId={item.id} />
+        </div>
       )}
     </div>
   );
