@@ -1143,22 +1143,25 @@ Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 
 ## 任务 9: 准备降级数据文件
 
-**目标：** 创建日语数据文件作为降级备份
+**目标：** 创建降级备份的 JSON 文件
 
-### Task 9.1: 创建日语数据文件
+**说明**：由于我们还没有 Supabase 配置，降级文件暂时使用现有数据。日语数据将从原始 markdown 提取（在 Task 12.3 中处理）。
 
-- [ ] **Step 1: 复制现有数据文件**
+### Task 9.1: 创建降级数据文件
+
+- [ ] **Step 1: 创建中文降级文件**
 
 ```bash
 cp public/data/items.json public/data/items-zh.json
 ```
 
-- [ ] **Step 2: 创建日语数据占位文件**
+- [ ] **Step 2: 创建日语降级文件（占位符）**
 
-创建 `public/data/items-ja.json`（暂时复制中文数据，后续翻译）:
+注意：此文件将在 Task 12.3 中通过迁移脚本从原始日文数据自动生成。
 
 ```bash
-cp public/data/items.json public/data/items-ja.json
+# 创建占位符文件，稍后会被迁移脚本替换
+echo '{"placeholder": true}' > public/data/items-ja.json
 ```
 
 - [ ] **Step 3: 提交数据文件**
@@ -1167,8 +1170,8 @@ cp public/data/items.json public/data/items-ja.json
 git add public/data/items-zh.json public/data/items-ja.json
 git commit -m "feat: add language-specific data files for fallback
 
-- Copy existing items.json to items-zh.json
-- Create items-ja.json placeholder (to be translated)
+- Copy existing items.json to items-zh.json for Chinese fallback
+- Create items-ja.json placeholder (will be populated by migration script)
 - Support fallback loading when Supabase is unavailable
 
 Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
@@ -1424,7 +1427,9 @@ CREATE POLICY "Public read access" ON items FOR SELECT USING (true);
 
 在 Supabase Dashboard 的 Table Editor 中，应该能看到所有 4 个表
 
-### Task 12.3: 数据迁移
+### Task 12.3: 数据迁移（从原始日文提取）
+
+**重要说明**：中文版是从日文翻译过来的，所以日语数据应该直接使用原始的 `.firecrawl/akachan-page.md`，确保内容准确性。
 
 - [ ] **Step 1: 安装迁移依赖**
 
@@ -1433,6 +1438,11 @@ npm install -D tsx
 ```
 
 - [ ] **Step 2: 运行迁移脚本**
+
+迁移脚本 `scripts/migrate-to-supabase.ts` 会：
+1. 从 `.firecrawl/akachan-page.md` 提取原始日文数据
+2. 从 `public/data/items.json` 读取中文数据
+3. 将双语数据插入到 Supabase
 
 ```bash
 npx tsx scripts/migrate-to-supabase.ts
@@ -1447,6 +1457,7 @@ Expected: 看到 "🎉 数据迁移完成！"消息
 - categories 表应该有 4 条记录
 - subcategories 表应该有 13 条记录
 - items 表应该有约 80 条记录
+- 日语字段（`name_ja`, `description_ja` 等）应该包含原始日文内容
 
 - [ ] **Step 4: 提交更新**
 
@@ -1454,45 +1465,35 @@ Expected: 看到 "🎉 数据迁移完成！"消息
 git add scripts/ .env.local.example
 git commit -m "feat: add Supabase migration scripts and database setup
 
-- Add migrate-to-supabase.ts script for data migration
+- Add migrate-to-supabase.ts script to extract data from original Japanese markdown
 - Include SQL schema for all tables
 - Add RLS policies for public read access
 - Document database setup process
+
+Note: Japanese data comes from original .firecrawl/akachan-page.md for accuracy
 
 Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
 ```
 
 ---
 
-## 任务 13: 日语翻译（可选）
+## 任务 13: 日语翻译（已跳过）
 
-**目标：** 翻译日语数据字段
+**目标：** ~~翻译日语数据字段~~
 
-**注意**：此任务可以稍后完成，不影响功能使用
+**状态**：✅ **不需要执行**
 
-### Task 13.1: 翻译日语字段
+**原因**：
+- 中文版是从原始日文（`.firecrawl/akachan-page.md`）翻译过来的
+- 日语版直接使用原始日文数据更准确，避免"翻译的翻译"造成的信息损失
+- Task 12.3 的迁移脚本会自动从原始日文 markdown 提取数据并填充到 Supabase 的日语字段
 
-- [ ] **Step 1: 在 Supabase Dashboard 中手动翻译**
-
-对于专业术语和关键内容，使用 Supabase Table Editor 手动编辑日语字段：
-
-**关键术语翻译参考**：
-- 分娩准备清单 → 出産準備リスト
-- 孕产妇用品 → マタニティ・ママ用品
-- 婴儿用品 → 赤ちゃん用品
-- 产前用品 → 産前用品
-- 入院准备用品 → 入院準備用品
-- 产后用品 → 産後用品
-- 必需 → 必要
-- 推荐 → あれば便利
-
-- [ ] **Step 2: 或使用翻译脚本**
-
-可以创建自动化翻译脚本（见设计文档中的示例）
-
-- [ ] **Step 3: 验证翻译**
-
-切换到日语版本，检查翻译质量
+**实施方式**：
+- 数据迁移脚本同时读取：
+  1. `.firecrawl/akachan-page.md`（原始日文）
+  2. `public/data/items.json`（中文翻译）
+- 将两种语言的数据正确映射到对应的数据库字段
+- 确保日文内容是原始、准确的
 
 ---
 
