@@ -33,8 +33,8 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 export function ItemIcon({ icon, className = "w-8 h-8" }: ItemIconProps) {
   if (!icon) return null;
 
-  // 如果 icon 以 '/' 开头，则认为是图片路径
-  if (icon.startsWith('/')) {
+  // 如果 icon 以 '/' 或 'http' 开头，则认为是图片路径
+  if (icon.startsWith('/') || icon.startsWith('http')) {
     return <img src={icon} alt="" className={className} />;
   }
 
