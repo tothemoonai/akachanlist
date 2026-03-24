@@ -20,91 +20,106 @@
               "priority": "recommended",
               "description": "妊娠初期（〜4ヶ月） - 産前・産後に不足しがちな栄養素はサプリやドリンクで摂取してもOK。妊娠中も飲めるノンカフェイン飲料もあります。",
               "quantity": "必要なものを",
-              "notes": "葉酸、鉄、カルシウム等"
+              "notes": "葉酸、鉄、カルシウム等",
+              "icon": "pill"
             },
             {
               "name": "マルチケース（母子手帳ケース）",
               "priority": "required",
               "description": "母子手帳だけでなく、妊婦健診補助券や予防接種に必要な書類もまとめて管理できます。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "shoppingBag"
             },
             {
               "name": "マタニティボディケアクリーム",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - 妊娠すると肌が敏感になったり、乾燥しやすくなります。おなかが大きくなる前からの早めのスキンケアが大切です。",
-              "quantity": "1〜2本"
+              "quantity": "1〜2本",
+              "icon": "heart"
             },
             {
               "name": "マタニティショーツ",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - おなかすっぽりタイプは、おなかをしっかり包み込み、ママとおなかの中の赤ちゃんを冷えから守ります。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "heart"
             },
             {
               "name": "マタニティブラジャー・ハーフトップ",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - 産前から産後まで長く使え、ブラジャー着けたまま授乳ができる便利な機能付きです。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "heart"
             },
             {
               "name": "キャミソール・タンクトップ",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - ブラがつらいときはカップ付きインナーでリラックス。秋冬には8分袖インナーもあります。",
-              "quantity": "2〜3枚"
+              "quantity": "2〜3枚",
+              "icon": "shirt"
             },
             {
               "name": "妊婦帯：にんぷたい（腹帯：はらおび）",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - おなかを冷えから守ったり、おなかを支えるのに必要なアイテム。",
-              "quantity": "2〜3枚"
+              "quantity": "2〜3枚",
+              "icon": "package"
             },
             {
               "name": "はらまき",
               "priority": "recommended",
               "description": "妊娠中期（5〜7ヶ月） - 優しくおなかを包み込み、冷えから守るのにおすすめのアイテム。",
-              "quantity": "1〜2枚"
+              "quantity": "1〜2枚",
+              "icon": "shoppingBag"
             },
             {
               "name": "抱き枕",
               "priority": "recommended",
               "description": "妊娠中期（5〜7ヶ月） - 産前は抱き枕として、寝苦しい体勢をサポートして、リラックスできます。産後は授乳クッションとして長く使えます。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             },
             {
               "name": "マタニティウェア",
               "priority": "required",
               "description": "妊娠中期（5〜7ヶ月） - おなかを優しく包み込み、産前産後ともに着用でき、動きやすいウェア。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "heart"
             },
             {
               "name": "マタニティレギンス・ストッキング・タイツ",
               "priority": "recommended",
               "description": "妊娠中期（5〜7ヶ月） - 普段のものがきついと感じた時に使用。股上が深く、大きくなったおなかにも快適に着用できます。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "heart"
             },
             {
               "name": "ルームウェア",
               "priority": "recommended",
               "description": "妊娠中期（5〜7ヶ月） - おなか周りがゆったりしたルームウェアでリラックス。産前産後使えます。",
-              "quantity": "1〜2枚"
+              "quantity": "1〜2枚",
+              "icon": "heart"
             },
             {
               "name": "ママバッグ",
               "priority": "recommended",
               "description": "妊娠後期（8〜10ヶ月） - 妊娠中から使えて、入院用品も入る大きさ。産後は赤ちゃんのお出かけバッグとして使えます。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             },
             {
               "name": "ドーナツクッション",
               "priority": "recommended",
               "description": "妊娠後期（8〜10ヶ月） - 産前産後のママのお尻を優しくサポート。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             },
             {
               "name": "吸水ケアパッド",
               "priority": "recommended",
               "description": "妊娠後期（8〜10ヶ月） - 妊娠中や産後、膀胱が圧迫されるなどして尿漏れを経験することがあります。吸水性が高く消臭効果のある専用パッドを使用。",
-              "quantity": "1袋"
+              "quantity": "1袋",
+              "icon": "heart"
             }
           ]
         },
@@ -118,59 +133,68 @@
               "priority": "required",
               "description": "ゆったり着用でき、入院中の検査でも便利な長さが特徴。帝王切開用のワンピース型、はだけにくいクロッチタイプ、フルオープン型、授乳口付きタイプなどがあります。",
               "quantity": "2〜3枚",
-              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください"
+              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください",
+              "icon": "heart"
             },
             {
               "name": "産後ショーツ",
               "priority": "required",
               "description": "股部分が開く防水仕様のショーツ。入院中の検査時や産褥パッドの交換時に寝たまま交換できて便利。",
               "quantity": "3〜4枚",
-              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください"
+              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください",
+              "icon": "heart"
             },
             {
               "name": "骨盤ベルト・骨盤ショーツ（産後すぐ）",
               "priority": "required",
               "description": "産後の骨盤をサポートするベルト。",
               "quantity": "1〜2枚",
-              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください"
+              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください",
+              "icon": "heart"
             },
             {
               "name": "産褥パッド",
               "priority": "required",
               "description": "破水時の羊水や産後の悪露を吸収するためのもの。大きいサイズから徐々に小さいサイズを使います。",
               "quantity": "2〜3袋",
-              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください"
+              "notes": "病院によって用意されている場合があります。確認して必要な分を用意してください",
+              "icon": "heart"
             },
             {
               "name": "授乳パッド",
               "priority": "required",
               "description": "母乳の漏れを防ぎ、乳房や乳首を保護。産後の母乳分泌状況に応じて追加購入。",
               "quantity": "1袋",
-              "notes": "繰り返し使える布タイプもあります"
+              "notes": "繰り返し使える布タイプもあります",
+              "icon": "heart"
             },
             {
               "name": "ストローマグ",
               "priority": "required",
               "description": "寝たまま水分補給ができる便利なアイテム。陣痛時、出産中、産後で動けない時に活躍。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             },
             {
               "name": "乳首ケアクリーム",
               "priority": "recommended",
               "description": "授乳中に敏感になる乳首のトラブルをやわらげ、皮膚を保護する専用クリーム。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             },
             {
               "name": "フルオープン産褥ショーツ（帝王切開用）",
               "priority": "recommended",
               "description": "股部分と腹部が開き、寝たまま産褥パッドの交換が可能。手術後の処置時も便利。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "shirt"
             },
             {
               "name": "腹部保護帯（帝王切開用）",
               "priority": "recommended",
               "description": "帝王切開後の傷を優しく覆う。",
-              "quantity": "1本"
+              "quantity": "1本",
+              "icon": "package"
             }
           ]
         },
@@ -183,19 +207,22 @@
               "name": "シェイプアップショーツ",
               "priority": "recommended",
               "description": "産後1ヶ月頃 - ハイウエスト設計で腹部を包み込み、ウエストからヒップ全体を引き締める。",
-              "quantity": "1〜2枚"
+              "quantity": "1〜2枚",
+              "icon": "heart"
             },
             {
               "name": "授乳ケープ",
               "priority": "recommended",
               "description": "お出かけ時の授乳にケープがあると便利。入院中や家に来客時の授乳にも便利。",
-              "quantity": "1枚"
+              "quantity": "1枚",
+              "icon": "heart"
             },
             {
               "name": "弾性ストッキング",
               "priority": "recommended",
               "description": "はくだけで産後の足のむくみケアができるソックスがおすすめ。",
-              "quantity": "1枚"
+              "quantity": "1枚",
+              "icon": "heart"
             }
           ]
         }
@@ -215,55 +242,64 @@
               "name": "短肌着",
               "priority": "required",
               "description": "肌に一番近着る、裾が短い基本の肌着。首やわきの汗を吸って清潔に保つ。",
-              "quantity": "3枚以上"
+              "quantity": "3枚以上",
+              "icon": "book"
             },
             {
               "name": "長肌着",
               "priority": "required",
               "description": "裾が膝まである長い肌着。短肌着の上に着せ、気温や季節に合わせて調節。",
-              "quantity": "5枚以上"
+              "quantity": "5枚以上",
+              "icon": "package"
             },
             {
               "name": "コンビネーション（50-60cm）",
               "priority": "recommended",
               "description": "上下がつながった肌着。季節によっては肌着1枚で過ごすことも。足が動き出すとコンビネーションに切り替える人も多い。",
-              "quantity": "2枚以上"
+              "quantity": "2枚以上",
+              "icon": "package"
             },
             {
               "name": "ツーウェイオール",
               "priority": "required",
               "description": "肌着の上に着せるベビー服。新生児期はワンピースとして、足が動き出したら股下を留めて着ることができます。",
-              "quantity": "2〜3枚"
+              "quantity": "2〜3枚",
+              "icon": "shirt"
             },
             {
               "name": "よだれかけ",
               "priority": "recommended",
               "description": "ミルクの吐き戻しやよだれで服が汚れるのを防ぐ。ファッションアイテムとしても。",
-              "quantity": "必要な分"
+              "quantity": "必要な分",
+              "icon": "shirt"
             },
             {
               "name": "ガーゼハンカチ",
               "priority": "required",
               "description": "お風呂、授乳時、よだれ拭きなど多用途に使えて、何あっても困らない。",
-              "quantity": "10枚以上"
+              "quantity": "10枚以上",
+              "icon": "heart"
             },
             {
               "name": "ベビーミトン",
               "priority": "recommended",
               "description": "赤ちゃんが顔を触った時に爪で自分を傷つけないようにするため。",
-              "quantity": "1〜2組"
+              "quantity": "1〜2組",
+              "icon": "baby"
             },
             {
               "name": "ベビーソックス",
               "priority": "recommended",
               "description": "防寒用。",
-              "quantity": "2〜3足"
+              "quantity": "2〜3足",
+              "icon": "baby"
             },
             {
               "name": "ベビーキャップ",
               "priority": "recommended",
               "description": "防寒用。",
-              "quantity": "1〜2個"
+              "quantity": "1〜2個",
+              "icon": "baby"
             }
           ]
         },
@@ -276,25 +312,29 @@
               "name": "新生児用おむつ（NB）",
               "priority": "required",
               "description": "新生児専用。",
-              "quantity": "1〜2袋"
+              "quantity": "1〜2袋",
+              "icon": "package"
             },
             {
               "name": "おむつ（Sサイズ）",
               "priority": "required",
               "description": "成長したら使用。",
-              "quantity": "1〜2袋"
+              "quantity": "1〜2袋",
+              "icon": "package"
             },
             {
               "name": "おしりふき",
               "priority": "required",
               "description": "清拭用。",
-              "quantity": "数袋"
+              "quantity": "数袋",
+              "icon": "package"
             },
             {
               "name": "おむつかぶれ防止クリーム",
               "priority": "required",
               "description": "おむつかぶれの予防。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "droplets"
             }
           ]
         },
@@ -307,25 +347,29 @@
               "name": "哺乳瓶",
               "priority": "required",
               "description": "160ml、240ml。",
-              "quantity": "各2〜3個"
+              "quantity": "各2〜3個",
+              "icon": "heart"
             },
             {
               "name": "乳首",
               "priority": "required",
               "description": "予备用。",
-              "quantity": "3〜5個"
+              "quantity": "3〜5個",
+              "icon": "package"
             },
             {
               "name": "粉ミルク",
               "priority": "recommended",
               "description": "いざという時に備えて。",
-              "quantity": "1缶"
+              "quantity": "1缶",
+              "icon": "coffee"
             },
             {
               "name": "授乳クッション",
               "priority": "recommended",
               "description": "授乳時に腕を支える。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "heart"
             }
           ]
         },
@@ -338,31 +382,36 @@
               "name": "ベビーバス",
               "priority": "required",
               "description": "赤ちゃん専用の沐浴用。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "baby"
             },
             {
               "name": "ベビー石鹸",
               "priority": "required",
               "description": "低刺激・無添加。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "baby"
             },
             {
               "name": "ベビーシャンプー",
               "priority": "required",
               "description": "低刺激・無添加。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "baby"
             },
             {
               "name": "ベビーバスタオル",
               "priority": "required",
               "description": "柔らかく吸水性が高い。",
-              "quantity": "3〜4枚"
+              "quantity": "3〜4枚",
+              "icon": "baby"
             },
             {
               "name": "水温計",
               "priority": "recommended",
               "description": "お湯の温度を測る。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "package"
             }
           ]
         },
@@ -375,25 +424,29 @@
               "name": "ベビーベッド",
               "priority": "required",
               "description": "安全基準認証取得品。",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "baby"
             },
             {
               "name": "マットレス",
               "priority": "required",
               "description": "ベビーベッドに合ったサイズ。",
-              "quantity": "1個"
+              "quantity": "1個",
+              "icon": "baby"
             },
             {
               "name": "寝具セット",
               "priority": "required",
               "description": "シーツ、カバーなど。",
-              "quantity": "2〜3セット"
+              "quantity": "2〜3セット",
+              "icon": "bed"
             },
             {
               "name": "スリーパー",
               "priority": "recommended",
               "description": "季節に合わせて厚さを選択。",
-              "quantity": "1〜2個"
+              "quantity": "1〜2個",
+              "icon": "package"
             }
           ]
         }
@@ -413,7 +466,8 @@
               "name": "ベビー服（70-80cm）",
               "priority": "required",
               "description": "活動量が増え、服の枚数も多く必要に。",
-              "quantity": "7〜10枚"
+              "quantity": "7〜10枚",
+              "icon": "shirt"
             }
           ]
         },
@@ -426,19 +480,22 @@
               "name": "ガラガラ",
               "priority": "recommended",
               "description": "聴覚の発達を促進。",
-              "quantity": "2〜3個"
+              "quantity": "2〜3個",
+              "icon": "package"
             },
             {
               "name": "布の絵本",
               "priority": "recommended",
               "description": "触覚と視覚の刺激。",
-              "quantity": "3〜5冊"
+              "quantity": "3〜5冊",
+              "icon": "star"
             },
             {
               "name": "プレイジム",
               "priority": "recommended",
               "description": "運動発達を促進。",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "star"
             }
           ]
         }
@@ -458,13 +515,15 @@
               "name": "ベビーカー",
               "priority": "required",
               "description": "乗り物、よく行く場所、家の収納スペースなどライフスタイルに合わせて使いやすいものを選びましょう。",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "baby"
             },
             {
               "name": "ベビーカーグッズ",
               "priority": "recommended",
               "description": "バッグをかけられるフック、ブランケットクリップ、雨天用のレインカバーなど。",
-              "quantity": "必要な分"
+              "quantity": "必要な分",
+              "icon": "baby"
             }
           ]
         },
@@ -477,13 +536,15 @@
               "name": "チャイルドシート",
               "priority": "required",
               "description": "シートベルト固定、ISOFIX固定など方法があり、車種や使用シーンに合わせて選択。",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "car"
             },
             {
               "name": "チャイルドシートグッズ",
               "priority": "recommended",
               "description": "後続車に赤ちゃんがいることを知らせる警告标志、車のシートを傷や汚れから守るシートプロテクターなど。",
-              "quantity": "必要な分"
+              "quantity": "必要な分",
+              "icon": "baby"
             }
           ]
         },
@@ -496,13 +557,15 @@
               "name": "ベビーキャリア・スリング",
               "priority": "required",
               "description": "使用月齢に合わせて、新生児から使えるタイプ、長く使えるタイプ、2台目としてなど、2つ以上を使い分ける人も多い。",
-              "quantity": "1〜2個"
+              "quantity": "1〜2個",
+              "icon": "baby"
             },
             {
               "name": "キャリアグッズ",
               "priority": "recommended",
               "description": "よだれからキャリアを守るカバー、紫外线の強い夏はUVケープ、寒い冬は防寒ケープなど。",
-              "quantity": "必要な分"
+              "quantity": "必要な分",
+              "icon": "sun"
             }
           ]
         }

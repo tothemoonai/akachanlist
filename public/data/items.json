@@ -20,91 +20,106 @@
               "priority": "recommended",
               "description": "妊娠初期（~4个月）- 产前产后容易缺乏的营养素可以通过补充剂和饮料摄入",
               "quantity": "按需准备",
-              "notes": "叶酸、铁、钙等"
+              "notes": "叶酸、铁、钙等",
+              "icon": "pill"
             },
             {
               "name": "母子手册夹",
               "priority": "required",
               "description": "不仅可以装母子手册，还能统一管理孕妇健康检查辅助券和预防接种所需的文件",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             },
             {
               "name": "孕妇身体护理霜",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 妊娠后皮肤变敏感、容易干燥，需要在肚子变大前尽早开始护肤",
-              "quantity": "1-2瓶"
+              "quantity": "1-2瓶",
+              "icon": "heart"
             },
             {
               "name": "孕妇内裤",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 包腹型可以紧紧包住腹部，保护妈妈和肚子里的宝宝不受寒冷侵袭",
-              "quantity": "3-4件"
+              "quantity": "3-4件",
+              "icon": "heart"
             },
             {
               "name": "孕妇文胸·半上衣",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 产前产后都可以长期使用，穿着文胸也能授乳的便利功能",
-              "quantity": "3-4件"
+              "quantity": "3-4件",
+              "icon": "heart"
             },
             {
               "name": "吊带背心·坦克背心",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 穿文胸难受时可以用带胸垫的内衣放松，秋冬还有8分袖内衣",
-              "quantity": "2-3件"
+              "quantity": "2-3件",
+              "icon": "shirt"
             },
             {
               "name": "孕妇带（腹带）",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 保护腹部不受寒冷侵袭，支撑腹部所必需的物品",
-              "quantity": "2-3条"
+              "quantity": "2-3条",
+              "icon": "heart"
             },
             {
               "name": "腹卷",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 温柔地包裹腹部，推荐用于防止受寒",
-              "quantity": "1-2条"
+              "quantity": "1-2条",
+              "icon": "shoppingBag"
             },
             {
               "name": "抱枕",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 产前作为抱枕，支持难受的姿势帮助放松；产后可作为授乳枕长期使用",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             },
             {
               "name": "孕妇装",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 温柔包裹腹部，产前产后都能穿着且活动方便的衣服",
-              "quantity": "3-4件"
+              "quantity": "3-4件",
+              "icon": "heart"
             },
             {
               "name": "孕妇用打底裤·连裤袜·长筒袜",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 感到平时的物品紧绷时使用。胯部宽松适合变大的腹部，穿着舒适",
-              "quantity": "3-4件"
+              "quantity": "3-4件",
+              "icon": "heart"
             },
             {
               "name": "家居服",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 腹部宽松的家居服可以放松，产前产后都能使用",
-              "quantity": "1-2件"
+              "quantity": "1-2件",
+              "icon": "heart"
             },
             {
               "name": "妈妈包",
               "priority": "recommended",
               "description": "妊娠后期（8-10个月）- 妊娠期间就能使用，可装住院用品，产后可作为宝宝外出的包",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             },
             {
               "name": "圆座垫",
               "priority": "recommended",
               "description": "妊娠后期（8-10个月）- 温柔支持产前产后妈妈的臀部",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             },
             {
               "name": "吸水护理垫",
               "priority": "recommended",
               "description": "妊娠后期（8-10个月）- 妊娠中产后膀胱受压迫等可能会经历尿漏，使用吸水性强且有消臭效果的专用垫",
-              "quantity": "1包"
+              "quantity": "1包",
+              "icon": "heart"
             }
           ]
         },
@@ -118,59 +133,68 @@
               "priority": "required",
               "description": "可以宽松穿着，住院时检查也方便的长度是特点。也有适合剖腹产的连衣裙型、不上卷的爬行型、全开型、授乳口型",
               "quantity": "2-3件",
-              "notes": "有些医院会准备，请确认后准备必要数量"
+              "notes": "有些医院会准备，请确认后准备必要数量",
+              "icon": "heart"
             },
             {
               "name": "产后内裤",
               "priority": "required",
               "description": "胯部开口的防水规格内裤。住院检查时和更换产褥垫时可以躺着更换，很方便",
               "quantity": "3-4件",
-              "notes": "有些医院会准备，请确认后准备必要数量"
+              "notes": "有些医院会准备，请确认后准备必要数量",
+              "icon": "heart"
             },
             {
               "name": "骨盆带·骨盆内裤（产后立即）",
               "priority": "required",
               "description": "支持产后骨盆的带子",
               "quantity": "1-2件",
-              "notes": "有些医院会准备，请确认后准备必要数量"
+              "notes": "有些医院会准备，请确认后准备必要数量",
+              "icon": "heart"
             },
             {
               "name": "产褥垫",
               "priority": "required",
               "description": "用于吸收破水时的羊水和产后恶露。从大尺寸逐渐使用小尺寸",
               "quantity": "2-3包",
-              "notes": "有些医院会准备，请确认后准备必要数量"
+              "notes": "有些医院会准备，请确认后准备必要数量",
+              "icon": "heart"
             },
             {
               "name": "防溢乳垫",
               "priority": "required",
               "description": "防止母乳漏出，保护乳房和乳头。根据产后母乳分泌情况追加购买",
               "quantity": "1包",
-              "notes": "也有可重复使用的布制类型"
+              "notes": "也有可重复使用的布制类型",
+              "icon": "heart"
             },
             {
               "name": "吸管杯",
               "priority": "required",
               "description": "躺着也能摄取水分的便利物品。阵痛时、分娩中、以及产后无法活动时发挥作用",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             },
             {
               "name": "乳头护理霜",
               "priority": "recommended",
               "description": "缓解授乳中敏感乳头的麻烦，保护皮肤的专用霜",
-              "quantity": "1支"
+              "quantity": "1支",
+              "icon": "heart"
             },
             {
               "name": "全开产褥内裤（剖腹产用）",
               "priority": "recommended",
               "description": "胯部和腹部都能开口，躺着就能更换产褥垫，术后处理时也很方便",
-              "quantity": "3-4件"
+              "quantity": "3-4件",
+              "icon": "package"
             },
             {
               "name": "腹部保护带（剖腹产用）",
               "priority": "recommended",
               "description": "温柔地覆盖剖腹产后的伤口",
-              "quantity": "1条"
+              "quantity": "1条",
+              "icon": "heart"
             }
           ]
         },
@@ -183,19 +207,22 @@
               "name": "塑身内裤",
               "priority": "recommended",
               "description": "产后1个月左右 - 高腰设计包裹腹部，收紧腰部到臀部整体",
-              "quantity": "1-2件"
+              "quantity": "1-2件",
+              "icon": "heart"
             },
             {
               "name": "授乳披风",
               "priority": "recommended",
               "description": "外出授乳时披风很方便。住院期间或家里来客时的授乳也很便利",
-              "quantity": "1件"
+              "quantity": "1件",
+              "icon": "heart"
             },
             {
               "name": "压力袜",
               "priority": "recommended",
               "description": "推荐穿只需穿着就能护理产后脚部浮肿的袜子",
-              "quantity": "1件"
+              "quantity": "1件",
+              "icon": "heart"
             }
           ]
         }
@@ -215,55 +242,64 @@
               "name": "短内衣",
               "priority": "required",
               "description": "最接近肌肤的衣摆较短的基本内衣。吸收颈部和腋下的汗水保持清洁",
-              "quantity": "3件以上"
+              "quantity": "3件以上",
+              "icon": "shirt"
             },
             {
               "name": "长内衣",
               "priority": "required",
               "description": "衣长到膝盖的长内衣。穿在短内衣上，根据气温和季节调节",
-              "quantity": "5件以上"
+              "quantity": "5件以上",
+              "icon": "shirt"
             },
             {
               "name": "连体衣（50-60cm）",
               "priority": "recommended",
               "description": "上下连着的内衣。根据季节有时只穿1件内衣，脚部活动活跃后改用连体衣的人增多",
-              "quantity": "2件以上"
+              "quantity": "2件以上",
+              "icon": "shirt"
             },
             {
               "name": "连衣裙（两用）",
               "priority": "required",
               "description": "穿在内衣上的衣服。新生儿时期作为连衣裙，脚部活动活跃时可以分开胯部穿着",
-              "quantity": "2-3件"
+              "quantity": "2-3件",
+              "icon": "shirt"
             },
             {
               "name": "围兜",
               "priority": "recommended",
               "description": "防止牛奶吐出或口水弄脏衣服，也可作为时尚单品",
-              "quantity": "按需准备"
+              "quantity": "按需准备",
+              "icon": "shirt"
             },
             {
               "name": "纱布手帕",
               "priority": "required",
               "description": "洗澡、授乳时、擦口水等多用途使用，有多少都不嫌多",
-              "quantity": "10条以上"
+              "quantity": "10条以上",
+              "icon": "heart"
             },
             {
               "name": "婴儿手套",
               "priority": "recommended",
               "description": "防止宝宝摸脸时用指甲伤到自己",
-              "quantity": "1-2组"
+              "quantity": "1-2组",
+              "icon": "baby"
             },
             {
               "name": "婴儿袜子",
               "priority": "recommended",
               "description": "保暖用",
-              "quantity": "2-3双"
+              "quantity": "2-3双",
+              "icon": "baby"
             },
             {
               "name": "婴儿帽子",
               "priority": "recommended",
               "description": "保暖用",
-              "quantity": "1-2个"
+              "quantity": "1-2个",
+              "icon": "baby"
             }
           ]
         },
@@ -276,25 +312,29 @@
               "name": "新生儿纸尿裤（NB）",
               "priority": "required",
               "description": "新生儿专用",
-              "quantity": "1-2包"
+              "quantity": "1-2包",
+              "icon": "package"
             },
             {
               "name": "纸尿裤（S号）",
               "priority": "required",
               "description": "成长后使用",
-              "quantity": "1-2包"
+              "quantity": "1-2包",
+              "icon": "package"
             },
             {
               "name": "婴儿湿巾",
               "priority": "required",
               "description": "清洁用",
-              "quantity": "若干包"
+              "quantity": "若干包",
+              "icon": "baby"
             },
             {
               "name": "护臀膏",
               "priority": "required",
               "description": "预防尿布疹",
-              "quantity": "1支"
+              "quantity": "1支",
+              "icon": "package"
             }
           ]
         },
@@ -307,25 +347,29 @@
               "name": "奶瓶",
               "priority": "required",
               "description": "160ml、240ml",
-              "quantity": "各2-3个"
+              "quantity": "各2-3个",
+              "icon": "package"
             },
             {
               "name": "奶嘴",
               "priority": "required",
               "description": "备用奶嘴",
-              "quantity": "3-5个"
+              "quantity": "3-5个",
+              "icon": "package"
             },
             {
               "name": "奶粉",
               "priority": "recommended",
               "description": "以备不时之需",
-              "quantity": "1罐"
+              "quantity": "1罐",
+              "icon": "coffee"
             },
             {
               "name": "哺乳枕",
               "priority": "recommended",
               "description": "哺乳时支撑手臂",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "heart"
             }
           ]
         },
@@ -338,31 +382,36 @@
               "name": "婴儿浴盆",
               "priority": "required",
               "description": "婴儿专用浴盆",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "baby"
             },
             {
               "name": "婴儿沐浴露",
               "priority": "required",
               "description": "温和无刺激",
-              "quantity": "1瓶"
+              "quantity": "1瓶",
+              "icon": "baby"
             },
             {
               "name": "婴儿洗发水",
               "priority": "required",
               "description": "温和无刺激",
-              "quantity": "1瓶"
+              "quantity": "1瓶",
+              "icon": "baby"
             },
             {
               "name": "婴儿毛巾",
               "priority": "required",
               "description": "柔软吸水",
-              "quantity": "3-4条"
+              "quantity": "3-4条",
+              "icon": "baby"
             },
             {
               "name": "水温计",
               "priority": "recommended",
               "description": "测量洗澡水温度",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "package"
             }
           ]
         },
@@ -375,25 +424,29 @@
               "name": "婴儿床",
               "priority": "required",
               "description": "安全标准认证",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "baby"
             },
             {
               "name": "床垫",
               "priority": "required",
               "description": "符合婴儿床尺寸",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "baby"
             },
             {
               "name": "床品套装",
               "priority": "required",
               "description": "床单、被套等",
-              "quantity": "2-3套"
+              "quantity": "2-3套",
+              "icon": "bed"
             },
             {
               "name": "睡袋",
               "priority": "recommended",
               "description": "根据季节选择厚度",
-              "quantity": "1-2个"
+              "quantity": "1-2个",
+              "icon": "bed"
             }
           ]
         }
@@ -413,7 +466,8 @@
               "name": "婴儿衣服（70-80cm）",
               "priority": "required",
               "description": "活动量增加，需要更多衣服",
-              "quantity": "7-10件"
+              "quantity": "7-10件",
+              "icon": "shirt"
             }
           ]
         },
@@ -426,19 +480,22 @@
               "name": "摇铃",
               "priority": "recommended",
               "description": "促进听觉发育",
-              "quantity": "2-3个"
+              "quantity": "2-3个",
+              "icon": "star"
             },
             {
               "name": "布书",
               "priority": "recommended",
               "description": "触觉和视觉刺激",
-              "quantity": "3-5本"
+              "quantity": "3-5本",
+              "icon": "star"
             },
             {
               "name": "健身架",
               "priority": "recommended",
               "description": "促进运动发育",
-              "quantity": "1个"
+              "quantity": "1个",
+              "icon": "star"
             }
           ]
         }
@@ -458,13 +515,15 @@
               "name": "婴儿车",
               "priority": "required",
               "description": "根据交通工具、常去的地方、家里的收纳空间等生活方式选择好用的物品",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "baby"
             },
             {
               "name": "婴儿车小物件",
               "priority": "recommended",
               "description": "可以挂包的挂钩、毯子夹、雨天用的雨罩等",
-              "quantity": "按需准备"
+              "quantity": "按需准备",
+              "icon": "baby"
             }
           ]
         },
@@ -477,13 +536,15 @@
               "name": "儿童安全座椅",
               "priority": "required",
               "description": "有安全带安装和ISOFIX安装等方法，根据车型和使用场景选择",
-              "quantity": "1台"
+              "quantity": "1台",
+              "icon": "car"
             },
             {
               "name": "安全座椅小物件",
               "priority": "recommended",
               "description": "通知后车有宝宝的警示标志、保护汽车座椅不被划伤弄脏的座椅垫等",
-              "quantity": "按需准备"
+              "quantity": "按需准备",
+              "icon": "car"
             }
           ]
         },
@@ -496,13 +557,15 @@
               "name": "婴儿背带",
               "priority": "required",
               "description": "根据使用月龄，有新生儿型、长期使用型、第二背带等，很多人分开使用2个以上",
-              "quantity": "1-2个"
+              "quantity": "1-2个",
+              "icon": "baby"
             },
             {
               "name": "背带小物件",
               "priority": "recommended",
               "description": "防止口水弄湿背带的带盖、紫外线强的夏天用UV披风、寒冷的冬天用防寒披风等",
-              "quantity": "按需准备"
+              "quantity": "按需准备",
+              "icon": "sun"
             }
           ]
         }
