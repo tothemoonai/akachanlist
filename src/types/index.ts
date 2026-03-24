@@ -21,6 +21,7 @@ export interface SupabaseItem {
   quantity_ja?: string;
   notes_zh?: string;
   notes_ja?: string;
+  icon?: string;
 }
 
 export interface SupabaseSubcategory {
@@ -70,6 +71,7 @@ export interface Item {
   description?: string;
   quantity?: string;
   notes?: string;
+  icon?: string;
 }
 
 export interface Subcategory {

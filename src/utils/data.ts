@@ -73,6 +73,7 @@ function transformItem(rawItem: SupabaseItem, lang: Language): Item {
     description,
     quantity,
     notes,
+    icon: rawItem.icon,
   };
 }
 
