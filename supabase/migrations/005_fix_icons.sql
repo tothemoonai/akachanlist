@@ -53,7 +53,7 @@ UPDATE items SET icon = 'calendar'
 WHERE name_zh LIKE '%日历%' OR name_ja LIKE '%カレンダー%';
 
 UPDATE items SET icon = 'home'
-WHERE name_zh LIKE '%房%' OR name_ja LIKE '%部屋%' OR name_jh LIKE '%家%';
+WHERE name_zh LIKE '%房%' OR name_ja LIKE '%部屋%' OR name_zh LIKE '%家%';
 
 UPDATE items SET icon = 'bottle'
 WHERE name_zh LIKE '%奶嘴%' OR name_zh LIKE '%乳头%' OR name_ja LIKE '%乳首%';
