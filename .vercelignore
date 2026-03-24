@@ -1,0 +1,38 @@
+# Test files
+test-*.js
+*.test.js
+*.test.ts
+*.test.tsx
+__tests__/
+coverage/
+
+# Local configuration
+.env.local
+.env.*.local
+.env.development
+.env.test
+
+# Development files
+.claude/
+.vscode/
+.idea/
+*.log
+*.iml
+
+# Build artifacts
+dist/
+node_modules/
+
+# Documentation (optional - remove if you want docs deployed)
+docs/*.md
+!docs/README.md
+
+# Git
+.git/
+.gitignore
+
+# Misc
+.DS_Store
+*.swp
+*.swo
+*~
