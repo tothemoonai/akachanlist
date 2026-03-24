@@ -33,6 +33,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 export function ItemIcon({ icon, className = "w-8 h-8" }: ItemIconProps) {
   if (!icon) return null;
 
+  // 如果 icon 以 '/' 开头，则认为是图片路径
+  if (icon.startsWith('/')) {
+    return <img src={icon} alt="" className={className} />;
+  }
+
+  // 否则使用 lucide-react 图标
   const IconComponent = iconMap[icon] || iconMap.default;
 
   return <IconComponent className={className} />;
