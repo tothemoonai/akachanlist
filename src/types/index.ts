@@ -136,6 +136,7 @@ export interface SupabaseUserListItem {
     name_ja: string;
     description_zh?: string;
     description_ja?: string;
+    priority: 'required' | 'recommended';
   };
 }
 

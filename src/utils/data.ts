@@ -174,7 +174,8 @@ export async function fetchProjectData(
     throw new Error('Supabase is not configured');
   }
 
-  const { data, error } = await supabase
+  // Fetch project with categories (2 levels)
+  const { data: projectData, error: projectError } = await supabase
     .from('projects')
     .select(`
       id,
@@ -189,8 +190,31 @@ export async function fetchProjectData(
         name_zh,
         name_ja,
         icon,
-        sort_order,
-        subcategories (
+        sort_order
+      )
+    `)
+    .eq('slug', projectSlug)
+    .order('sort_order', { referencedTable: 'categories' })
+    .single();
+
+  if (projectError) {
+    throw new Error(`Failed to fetch project data for slug "${projectSlug}": ${projectError.message}`);
+  }
+
+  if (!projectData || !Array.isArray(projectData.categories)) {
+    throw new Error(`Invalid project data received for slug "${projectSlug}"`);
+  }
+
+  // Fetch subcategories for each category
+  const categoriesWithData = await Promise.all(
+    projectData.categories.map(async (category: any) => {
+      if (!supabase) {
+        throw new Error('Supabase client is not available');
+      }
+
+      const { data: subcategoriesData } = await supabase
+        .from('subcategories')
+        .select(`
           id,
           slug,
           name_zh,
@@ -211,29 +235,24 @@ export async function fetchProjectData(
             notes_ja,
             sort_order
           )
-        )
-      )
-    `)
-    .eq('slug', projectSlug)
-    .order('sort_order', { referencedTable: 'categories' })
-    .order('sort_order', { referencedTable: 'subcategories' })
-    .order('sort_order', { referencedTable: 'items' })
-    .single();
+        `)
+        .eq('category_id', category.id)
+        .order('sort_order', { referencedTable: 'items' });
 
-  if (error) {
-    throw new Error(`Failed to fetch project data for slug "${projectSlug}": ${error.message}`);
-  }
+      return {
+        ...category,
+        subcategories: subcategoriesData || []
+      };
+    })
+  );
 
-  // Defensive runtime validation before type assertion
-  if (!data || typeof data !== 'object') {
-    throw new Error(`Invalid project data received for slug "${projectSlug}"`);
-  }
+  // Reconstruct the full data structure
+  const fullData = {
+    ...projectData,
+    categories: categoriesWithData
+  };
 
-  if (!Array.isArray((data as any).categories)) {
-    throw new Error(`Project data for slug "${projectSlug}" is missing categories array`);
-  }
-
-  return transformData(data as SupabaseProjectResponse, lang);
+  return transformData(fullData as SupabaseProjectResponse, lang);
 }
 
 /**

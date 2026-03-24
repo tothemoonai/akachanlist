@@ -77,7 +77,13 @@
       "Bash(vercel --prod --scope tothemoonais-projects --yes)",
       "Bash(vercel inspect:*)",
       "Bash(ls -la *.md 2>/dev/null | grep -v node_modules)",
-      "Bash(ls -la docs/*.md)"
+      "Bash(ls -la docs/*.md)",
+      "Bash(npx supabase:*)",
+      "Bash(node test-supabase.js)",
+      "Bash(grep -n \"VITE_SUPABASE\" package.json vite.config.* 2>/dev/null || echo \"Not found in config files\")",
+      "Bash(node -e \"console.log\\('Testing Node version:', process.version\\)\")",
+      "Bash(vercel --prod 2>&1)",
+      "Bash(vercel info:*)"
     ]
   }
 }

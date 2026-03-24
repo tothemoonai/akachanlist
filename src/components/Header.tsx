@@ -21,17 +21,26 @@ export function Header({ title, subtitle }: HeaderProps) {
   return (
     <>
       <header className="bg-white shadow-sm sticky top-0 z-30">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Baby className="w-6 h-6 text-pink-500" />
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-                <p className="text-sm text-gray-600 mt-1">{subtitle}</p>
+        <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-4">
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+              <Baby className="w-5 h-5 sm:w-6 sm:h-6 text-pink-500 flex-shrink-0" />
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-2xl font-bold text-gray-900 truncate">
+                  {language === 'ja' ? (
+                    <>
+                      <span className="sm:hidden">アカチャンリスト</span>
+                      <span className="hidden sm:inline">{title}</span>
+                    </>
+                  ) : (
+                    title
+                  )}
+                </h1>
+                <p className="text-xs sm:text-sm text-gray-600 mt-0.5 sm:mt-1 hidden sm:block">{subtitle}</p>
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
               <LanguageSwitcher />
               <AuthButton />
 
@@ -39,7 +48,7 @@ export function Header({ title, subtitle }: HeaderProps) {
                 <>
                   <button
                     onClick={() => setShowSidebar(true)}
-                    className="flex items-center gap-1 px-3 py-1.5 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="flex items-center gap-1 px-2 py-1.5 sm:px-3 sm:py-1.5 text-xs sm:text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
                     aria-label={language === 'zh' ? '我的清单' : 'マイリスト'}
                   >
                     <Menu className="w-4 h-4" />
@@ -50,10 +59,10 @@ export function Header({ title, subtitle }: HeaderProps) {
 
                   <button
                     onClick={() => setShowShoppingList(true)}
-                    className="relative p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="relative p-1.5 sm:p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
                     aria-label={language === 'zh' ? '购物清单' : 'ショッピングリスト'}
                   >
-                    <ShoppingCart className="w-6 h-6" />
+                    <ShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
                   </button>
                 </>
               )}
@@ -61,7 +70,7 @@ export function Header({ title, subtitle }: HeaderProps) {
           </div>
 
           {currentList && (
-            <div className="mt-3 text-sm text-pink-600 font-medium">
+            <div className="mt-2 sm:mt-3 text-xs sm:text-sm text-pink-600 font-medium truncate">
               {language === 'zh' ? '当前清单：' : '現在のリスト：'}{currentList.name}
             </div>
           )}

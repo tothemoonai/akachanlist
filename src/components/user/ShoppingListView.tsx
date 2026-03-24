@@ -37,19 +37,47 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
   const { language } = useLanguage();
 
   // Fetch all list items across all lists
-  const { data: allItems = [], isLoading } = useQuery({
+  const { data: allItems = [], isLoading, error } = useQuery({
     queryKey: ['shoppingList', user?.id],
     queryFn: async () => {
       if (!user || !supabase) return [];
 
-      const { data, error } = await supabase
-        .from('user_list_items')
-        .select('*, user_lists!inner(id, name), items(id, name_zh, name_ja)')
-        .eq('user_lists.user_id', user.id)
-        .order('user_list_items.created_at', { ascending: true });
+      console.log('🛒 Fetching shopping list for user:', user.id);
 
-      if (error) throw error;
-      return data as UserListItemWithRelations[];
+      // Fetch list items with user list info
+      const { data: listItemsData, error: fetchError } = await supabase
+        .from('user_list_items')
+        .select('*, user_lists!inner(id, name)')
+        .eq('user_lists.user_id', user.id)
+        .order('created_at', { ascending: true });
+
+      if (fetchError) {
+        console.error('❌ Shopping list fetch error:', fetchError);
+        throw fetchError;
+      }
+
+      console.log('✅ Shopping list data received:', listItemsData?.length || 0, 'items');
+
+      // Fetch item details separately
+      const listItemIds = listItemsData?.map(li => li.item_id) || [];
+      const uniqueItemIds = [...new Set(listItemIds)];
+
+      if (uniqueItemIds.length === 0) {
+        return listItemsData as UserListItemWithRelations[];
+      }
+
+      const { data: itemsData } = await supabase
+        .from('items')
+        .select('id, name_zh, name_ja')
+        .in('id', uniqueItemIds);
+
+      // Merge item details into list items
+      const mergedData = listItemsData?.map(li => ({
+        ...li,
+        item: itemsData?.find(item => item.id === li.item_id) || null
+      })) || [];
+
+      return mergedData as UserListItemWithRelations[];
     },
     enabled: isOpen && !!user,
     staleTime: STALE_TIME,
@@ -114,6 +142,13 @@ export function ShoppingListView({ isOpen, onClose }: ShoppingListViewProps) {
               <div className="text-gray-500">
                 {language === 'zh' ? '加载中...' : '読み込み中...'}
               </div>
+            </div>
+          ) : error ? (
+            <div className="text-center py-8">
+              <p className="text-red-500 mb-2">
+                {language === 'zh' ? '加载失败' : '読み込みに失敗しました'}
+              </p>
+              <p className="text-xs text-gray-500">{error.message}</p>
             </div>
           ) : allItems.length === 0 ? (
             <div className="text-center py-8">

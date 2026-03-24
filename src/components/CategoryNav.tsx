@@ -13,7 +13,7 @@ export const CategoryNav: React.FC<CategoryNavProps> = ({
   onCategoryClick,
 }) => {
   return (
-    <nav className="sticky top-[88px] z-40 bg-white shadow-sm border-b border-gray-200">
+    <nav className="sticky top-16 sm:top-[88px] z-40 bg-white shadow-sm border-b border-gray-200">
       <div className="container mx-auto px-4">
         <div className="flex gap-2 overflow-x-auto py-3 scrollbar-hide">
           {categories.map((category) => {

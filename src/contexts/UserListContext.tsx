@@ -52,12 +52,30 @@ export function UserListProvider({ children }: { children: ReactNode }) {
 
       const { data, error } = await supabase
         .from('user_list_items')
-        .select('*, item(id, name_zh, name_ja, description_zh, description_ja)')
+        .select('*')
         .eq('user_list_id', currentList.id)
         .order('created_at', { ascending: true });
 
       if (error) throw error;
-      return data as SupabaseUserListItem[];
+
+      // Fetch item details separately
+      const listItemIds = data.map(li => li.item_id);
+      const uniqueItemIds = [...new Set(listItemIds)];
+
+      if (uniqueItemIds.length === 0) {
+        return data as SupabaseUserListItem[];
+      }
+
+      const { data: itemsData } = await supabase
+        .from('items')
+        .select('id, name_zh, name_ja, description_zh, description_ja, priority')
+        .in('id', uniqueItemIds);
+
+      // Merge item details into list items
+      return data.map(li => ({
+        ...li,
+        item: itemsData?.find(item => item.id === li.item_id) || null
+      })) as SupabaseUserListItem[];
     },
     enabled: !!currentList,
     staleTime: 5 * 60 * 1000,
@@ -210,6 +228,7 @@ export function UserListProvider({ children }: { children: ReactNode }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['listItems'] });
+      queryClient.invalidateQueries({ queryKey: ['shoppingList'] });
     },
   });
 
@@ -228,6 +247,7 @@ export function UserListProvider({ children }: { children: ReactNode }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['listItems'] });
+      queryClient.invalidateQueries({ queryKey: ['shoppingList'] });
     },
   });
 

@@ -2,6 +2,7 @@ import { useRef } from 'react';
 import { Header } from '../components/Header';
 import { CategoryNav } from '../components/CategoryNav';
 import { CategorySection } from '../components/CategorySection';
+import { AddedItemsView } from '../components/AddedItemsView';
 import { Footer } from '../components/Footer';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { ErrorMessage } from '../components/ErrorMessage';
@@ -39,6 +40,10 @@ export const Home: React.FC = () => {
       />
 
       <main className="container mx-auto px-4 py-8">
+        {/* Added Items View - Shown first */}
+        <AddedItemsView />
+
+        {/* All Categories */}
         {data.categories.map((category) => (
           <div
             key={category.id}
