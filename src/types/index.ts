@@ -127,6 +127,7 @@ export interface SupabaseUserListItem {
   quantity: number;
   is_purchased: boolean;
   purchased_at?: string;
+  user_notes?: string;
   created_at: string;
   updated_at: string;
   // Joined from items table
@@ -137,6 +138,7 @@ export interface SupabaseUserListItem {
     description_zh?: string;
     description_ja?: string;
     priority: 'required' | 'recommended';
+    icon?: string;
   };
 }
 

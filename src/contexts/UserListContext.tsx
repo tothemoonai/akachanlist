@@ -15,6 +15,7 @@ interface UserListContextType {
   addItem: (listId: string, itemId: string, priority: string, quantity: number) => Promise<void>;
   removeItem: (listItemId: string) => Promise<void>;
   updateItem: (listItemId: string, priority: string, quantity: number) => Promise<void>;
+  updateUserNotes: (listItemId: string, notes: string) => Promise<void>;
   togglePurchased: (listItemId: string) => Promise<void>;
   resetPurchasedItem: (listItemId: string) => Promise<void>;
 }
@@ -197,6 +198,25 @@ export function UserListProvider({ children }: { children: ReactNode }) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['listItems'] });
+      queryClient.invalidateQueries({ queryKey: ['shoppingList'] });
+    },
+  });
+
+  // Update user notes mutation
+  const updateUserNotesMutation = useMutation({
+    mutationFn: async ({ listItemId, notes }: { listItemId: string; notes: string }) => {
+      if (!supabase) throw new Error('Supabase not configured');
+
+      const { error } = await supabase
+        .from('user_list_items')
+        .update({ user_notes: notes })
+        .eq('id', listItemId);
+
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['listItems'] });
+      queryClient.invalidateQueries({ queryKey: ['shoppingList'] });
     },
   });
 
@@ -280,6 +300,10 @@ export function UserListProvider({ children }: { children: ReactNode }) {
     await updateItemMutation.mutateAsync({ listItemId, priority, quantity });
   }, [updateItemMutation]);
 
+  const updateUserNotes = useCallback(async (listItemId: string, notes: string) => {
+    await updateUserNotesMutation.mutateAsync({ listItemId, notes });
+  }, [updateUserNotesMutation]);
+
   const togglePurchased = useCallback(async (listItemId: string) => {
     await togglePurchasedMutation.mutateAsync(listItemId);
   }, [togglePurchasedMutation]);
@@ -301,6 +325,7 @@ export function UserListProvider({ children }: { children: ReactNode }) {
         addItem,
         removeItem,
         updateItem,
+        updateUserNotes,
         togglePurchased,
         resetPurchasedItem,
       }}

@@ -83,7 +83,16 @@
       "Bash(grep -n \"VITE_SUPABASE\" package.json vite.config.* 2>/dev/null || echo \"Not found in config files\")",
       "Bash(node -e \"console.log\\('Testing Node version:', process.version\\)\")",
       "Bash(vercel --prod 2>&1)",
-      "Bash(vercel info:*)"
+      "Bash(vercel info:*)",
+      "Bash(gh auth:*)",
+      "Bash(gh repo:*)",
+      "Bash(vercel link:*)",
+      "Bash(gh pr:*)",
+      "Bash(vercel git:*)",
+      "Bash(curl -s \"https://akachanlist-mo870m7s9-tothemoonais-projects.vercel.app/PREVIEW_TEST.md\" | head -20)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)",
+      "mcp__web-reader__webReader"
     ]
   }
 }
