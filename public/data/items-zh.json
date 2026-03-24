@@ -21,98 +21,98 @@
               "description": "妊娠初期（~4个月）- 产前产后容易缺乏的营养素可以通过补充剂和饮料摄入",
               "quantity": "按需准备",
               "notes": "叶酸、铁、钙等",
-              "icon": "pill"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img01.gif?20240501"
             },
             {
               "name": "母子手册夹",
               "priority": "required",
               "description": "不仅可以装母子手册，还能统一管理孕妇健康检查辅助券和预防接种所需的文件",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img02.gif?20240501"
             },
             {
               "name": "孕妇身体护理霜",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 妊娠后皮肤变敏感、容易干燥，需要在肚子变大前尽早开始护肤",
               "quantity": "1-2瓶",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img03.gif?20240501"
             },
             {
               "name": "孕妇内裤",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 包腹型可以紧紧包住腹部，保护妈妈和肚子里的宝宝不受寒冷侵袭",
               "quantity": "3-4件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img04.gif?20240501"
             },
             {
               "name": "孕妇文胸·半上衣",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 产前产后都可以长期使用，穿着文胸也能授乳的便利功能",
               "quantity": "3-4件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img05.gif?20240501"
             },
             {
               "name": "吊带背心·坦克背心",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 穿文胸难受时可以用带胸垫的内衣放松，秋冬还有8分袖内衣",
               "quantity": "2-3件",
-              "icon": "shirt"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img07.gif?20240501"
             },
             {
               "name": "孕妇带（腹带）",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 保护腹部不受寒冷侵袭，支撑腹部所必需的物品",
               "quantity": "2-3条",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img08.gif?20240501"
             },
             {
               "name": "腹卷",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 温柔地包裹腹部，推荐用于防止受寒",
               "quantity": "1-2条",
-              "icon": "shoppingBag"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img09.gif?20240501"
             },
             {
               "name": "抱枕",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 产前作为抱枕，支持难受的姿势帮助放松；产后可作为授乳枕长期使用",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img10.gif?20240501"
             },
             {
               "name": "孕妇装",
               "priority": "required",
               "description": "妊娠中期（5-7个月）- 温柔包裹腹部，产前产后都能穿着且活动方便的衣服",
               "quantity": "3-4件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img11.gif?20240501"
             },
             {
               "name": "孕妇用打底裤·连裤袜·长筒袜",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 感到平时的物品紧绷时使用。胯部宽松适合变大的腹部，穿着舒适",
               "quantity": "3-4件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img12.gif?20240501"
             },
             {
               "name": "家居服",
               "priority": "recommended",
               "description": "妊娠中期（5-7个月）- 腹部宽松的家居服可以放松，产前产后都能使用",
               "quantity": "1-2件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img13.gif?20240501"
             },
             {
               "name": "妈妈包",
               "priority": "recommended",
               "description": "妊娠后期（8-10个月）- 妊娠期间就能使用，可装住院用品，产后可作为宝宝外出的包",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img14.gif?20240501"
             },
             {
               "name": "圆座垫",
               "priority": "recommended",
               "description": "妊娠后期（8-10个月）- 温柔支持产前产后妈妈的臀部",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s01/img15.gif?20240501"
             },
             {
               "name": "吸水护理垫",
@@ -134,7 +134,7 @@
               "description": "可以宽松穿着，住院时检查也方便的长度是特点。也有适合剖腹产的连衣裙型、不上卷的爬行型、全开型、授乳口型",
               "quantity": "2-3件",
               "notes": "有些医院会准备，请确认后准备必要数量",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img01.gif?20240501"
             },
             {
               "name": "产后内裤",
@@ -142,7 +142,7 @@
               "description": "胯部开口的防水规格内裤。住院检查时和更换产褥垫时可以躺着更换，很方便",
               "quantity": "3-4件",
               "notes": "有些医院会准备，请确认后准备必要数量",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img02.gif?20240501"
             },
             {
               "name": "骨盆带·骨盆内裤（产后立即）",
@@ -150,7 +150,7 @@
               "description": "支持产后骨盆的带子",
               "quantity": "1-2件",
               "notes": "有些医院会准备，请确认后准备必要数量",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img03.gif?20240501"
             },
             {
               "name": "产褥垫",
@@ -158,7 +158,7 @@
               "description": "用于吸收破水时的羊水和产后恶露。从大尺寸逐渐使用小尺寸",
               "quantity": "2-3包",
               "notes": "有些医院会准备，请确认后准备必要数量",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img04.gif?20240501"
             },
             {
               "name": "防溢乳垫",
@@ -166,35 +166,35 @@
               "description": "防止母乳漏出，保护乳房和乳头。根据产后母乳分泌情况追加购买",
               "quantity": "1包",
               "notes": "也有可重复使用的布制类型",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img05.gif?20240501"
             },
             {
               "name": "吸管杯",
               "priority": "required",
               "description": "躺着也能摄取水分的便利物品。阵痛时、分娩中、以及产后无法活动时发挥作用",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img07.gif?20240501"
             },
             {
               "name": "乳头护理霜",
               "priority": "recommended",
               "description": "缓解授乳中敏感乳头的麻烦，保护皮肤的专用霜",
               "quantity": "1支",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img08.gif?20240501"
             },
             {
               "name": "全开产褥内裤（剖腹产用）",
               "priority": "recommended",
               "description": "胯部和腹部都能开口，躺着就能更换产褥垫，术后处理时也很方便",
               "quantity": "3-4件",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img09.gif?20240501"
             },
             {
               "name": "腹部保护带（剖腹产用）",
               "priority": "recommended",
               "description": "温柔地覆盖剖腹产后的伤口",
               "quantity": "1条",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s02/img10.gif?20240501"
             }
           ]
         },
@@ -208,21 +208,21 @@
               "priority": "recommended",
               "description": "产后1个月左右 - 高腰设计包裹腹部，收紧腰部到臀部整体",
               "quantity": "1-2件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s03/img02.gif?20240501"
             },
             {
               "name": "授乳披风",
               "priority": "recommended",
               "description": "外出授乳时披风很方便。住院期间或家里来客时的授乳也很便利",
               "quantity": "1件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s03/img03.gif?20240501"
             },
             {
               "name": "压力袜",
               "priority": "recommended",
               "description": "推荐穿只需穿着就能护理产后脚部浮肿的袜子",
               "quantity": "1件",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category01/category01s03/img04.gif?20240501"
             }
           ]
         }
@@ -243,21 +243,21 @@
               "priority": "required",
               "description": "最接近肌肤的衣摆较短的基本内衣。吸收颈部和腋下的汗水保持清洁",
               "quantity": "3件以上",
-              "icon": "shirt"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category03/img01.gif?20240501"
             },
             {
               "name": "长内衣",
               "priority": "required",
               "description": "衣长到膝盖的长内衣。穿在短内衣上，根据气温和季节调节",
               "quantity": "5件以上",
-              "icon": "shirt"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category03/img02.gif?20240501"
             },
             {
               "name": "连体衣（50-60cm）",
               "priority": "recommended",
               "description": "上下连着的内衣。根据季节有时只穿1件内衣，脚部活动活跃后改用连体衣的人增多",
               "quantity": "2件以上",
-              "icon": "shirt"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category03/img04.gif?20240501"
             },
             {
               "name": "连衣裙（两用）",
@@ -313,28 +313,28 @@
               "priority": "required",
               "description": "新生儿专用",
               "quantity": "1-2包",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category02/img01.gif?20240501"
             },
             {
               "name": "纸尿裤（S号）",
               "priority": "required",
               "description": "成长后使用",
               "quantity": "1-2包",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category02/img02.gif?20240501"
             },
             {
               "name": "婴儿湿巾",
               "priority": "required",
               "description": "清洁用",
               "quantity": "若干包",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category02/img03.gif?20240501"
             },
             {
               "name": "护臀膏",
               "priority": "required",
               "description": "预防尿布疹",
               "quantity": "1支",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category02/img04.gif?20240501"
             }
           ]
         },
@@ -348,28 +348,28 @@
               "priority": "required",
               "description": "160ml、240ml",
               "quantity": "各2-3个",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category05/img01.gif?20240501"
             },
             {
               "name": "奶嘴",
               "priority": "required",
               "description": "备用奶嘴",
               "quantity": "3-5个",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category05/img02.gif?20240501"
             },
             {
               "name": "奶粉",
               "priority": "recommended",
               "description": "以备不时之需",
               "quantity": "1罐",
-              "icon": "coffee"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category05/img03.gif?20240501"
             },
             {
               "name": "哺乳枕",
               "priority": "recommended",
               "description": "哺乳时支撑手臂",
               "quantity": "1个",
-              "icon": "heart"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category05/img04.gif?20240501"
             }
           ]
         },
@@ -383,35 +383,35 @@
               "priority": "required",
               "description": "婴儿专用浴盆",
               "quantity": "1个",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category07/img01.gif?20240501"
             },
             {
               "name": "婴儿沐浴露",
               "priority": "required",
               "description": "温和无刺激",
               "quantity": "1瓶",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category07/img02.gif?20240501"
             },
             {
               "name": "婴儿洗发水",
               "priority": "required",
               "description": "温和无刺激",
               "quantity": "1瓶",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category07/img03.gif?20240501"
             },
             {
               "name": "婴儿毛巾",
               "priority": "required",
               "description": "柔软吸水",
               "quantity": "3-4条",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category07/img04.gif?20240501"
             },
             {
               "name": "水温计",
               "priority": "recommended",
               "description": "测量洗澡水温度",
               "quantity": "1个",
-              "icon": "package"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category07/img05.gif?20240501"
             }
           ]
         },
@@ -425,28 +425,28 @@
               "priority": "required",
               "description": "安全标准认证",
               "quantity": "1个",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category04/img01.gif?20240501"
             },
             {
               "name": "床垫",
               "priority": "required",
               "description": "符合婴儿床尺寸",
               "quantity": "1个",
-              "icon": "baby"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category04/img02.gif?20240501"
             },
             {
               "name": "床品套装",
               "priority": "required",
               "description": "床单、被套等",
               "quantity": "2-3套",
-              "icon": "bed"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category04/img03.gif?20240501"
             },
             {
               "name": "睡袋",
               "priority": "recommended",
               "description": "根据季节选择厚度",
               "quantity": "1-2个",
-              "icon": "bed"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category04/img05.gif?20240501"
             }
           ]
         }
@@ -467,7 +467,7 @@
               "priority": "required",
               "description": "活动量增加，需要更多衣服",
               "quantity": "7-10件",
-              "icon": "shirt"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category03/img06.gif?20240501"
             }
           ]
         },
@@ -481,21 +481,21 @@
               "priority": "recommended",
               "description": "促进听觉发育",
               "quantity": "2-3个",
-              "icon": "star"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category08/img01.gif?20240501"
             },
             {
               "name": "布书",
               "priority": "recommended",
               "description": "触觉和视觉刺激",
               "quantity": "3-5本",
-              "icon": "star"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category08/img02.gif?20240501"
             },
             {
               "name": "健身架",
               "priority": "recommended",
               "description": "促进运动发育",
               "quantity": "1个",
-              "icon": "star"
+              "icon": "https://www.akachan.jp/assets/dist_pages/junbilist/img/category08/img03.gif?20240501"
             }
           ]
         }
