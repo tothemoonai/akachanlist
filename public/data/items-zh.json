@@ -8,7 +8,7 @@
     {
       "id": "maternity-mama",
       "title": "孕产妇用品",
-      "icon": "/icons/maternity-mama.png",
+      "icon": "/icons/icon__nav_category_1.gif",
       "subcategories": [
         {
           "id": "prenatal",
@@ -231,7 +231,7 @@
     {
       "id": "baby-0-3m",
       "title": "婴儿用品（0-3个月）",
-      "icon": "/icons/baby-wear.png",
+      "icon": "/icons/icon__nav_category_3.gif",
       "subcategories": [
         {
           "id": "clothing",
@@ -455,7 +455,7 @@
     {
       "id": "baby-3-6m",
       "title": "婴儿用品（3-6个月）",
-      "icon": "/icons/baby-wear.png",
+      "icon": "/icons/icon__nav_category_3.gif",
       "subcategories": [
         {
           "id": "clothing-3-6m",
@@ -504,7 +504,7 @@
     {
       "id": "outing",
       "title": "外出用品",
-      "icon": "/icons/odekake.png",
+      "icon": "/icons/icon__nav_category_2.gif",
       "subcategories": [
         {
           "id": "stroller",
