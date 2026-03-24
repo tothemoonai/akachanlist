@@ -234,6 +234,7 @@ export async function fetchProjectData(
             quantity_ja,
             notes_zh,
             notes_ja,
+            icon,
             sort_order
           )
         `)
