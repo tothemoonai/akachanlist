@@ -73,6 +73,7 @@ function transformItem(rawItem: SupabaseItem, lang: Language): Item {
     description,
     quantity,
     notes,
+    icon: rawItem.icon,
   };
 }
 
@@ -233,6 +234,7 @@ export async function fetchProjectData(
             quantity_ja,
             notes_zh,
             notes_ja,
+            icon,
             sort_order
           )
         `)

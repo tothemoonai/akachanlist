@@ -6,6 +6,7 @@ import { AddedItemsView } from '../components/AddedItemsView';
 import { Footer } from '../components/Footer';
 import { LoadingSpinner } from '../components/LoadingSpinner';
 import { ErrorMessage } from '../components/ErrorMessage';
+import { ReviewSidebar } from '../components/reviews/ReviewSidebar';
 import { useProjectData } from '../hooks/useProjectData';
 
 export const Home: React.FC = () => {
@@ -39,7 +40,7 @@ export const Home: React.FC = () => {
         onCategoryClick={handleCategoryClick}
       />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 lg:pr-96">
         {/* Added Items View - Shown first */}
         <AddedItemsView />
 
@@ -69,6 +70,8 @@ export const Home: React.FC = () => {
         source="https://www.akachan.jp/junbilist/childbirth/"
         disclaimer="本清单仅供参考，具体需求请根据个人情况调整。内容翻译自日本网站，部分物品可能需要根据当地情况调整。"
       />
+
+      <ReviewSidebar />
     </div>
   );
 };

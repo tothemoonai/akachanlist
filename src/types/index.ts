@@ -21,6 +21,7 @@ export interface SupabaseItem {
   quantity_ja?: string;
   notes_zh?: string;
   notes_ja?: string;
+  icon?: string;
 }
 
 export interface SupabaseSubcategory {
@@ -70,6 +71,7 @@ export interface Item {
   description?: string;
   quantity?: string;
   notes?: string;
+  icon?: string;
 }
 
 export interface Subcategory {
@@ -127,6 +129,7 @@ export interface SupabaseUserListItem {
   quantity: number;
   is_purchased: boolean;
   purchased_at?: string;
+  user_notes?: string;
   created_at: string;
   updated_at: string;
   // Joined from items table
@@ -137,6 +140,7 @@ export interface SupabaseUserListItem {
     description_zh?: string;
     description_ja?: string;
     priority: 'required' | 'recommended';
+    icon?: string;
   };
 }
 
@@ -208,3 +212,8 @@ export const VALIDATION_RULES = {
     MAX: 99,
   },
 } as const;
+
+// ============================================
+// Reviews Types
+// ============================================
+export * from './reviews';

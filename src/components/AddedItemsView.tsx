@@ -33,6 +33,7 @@ export function AddedItemsView() {
           description: item?.description_zh,
           quantity: li.quantity.toString(),
           notes: undefined,
+          icon: item?.icon,
           userListItem: li
         };
       });
