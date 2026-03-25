@@ -43,13 +43,46 @@ export function useAuth() {
     };
   }, []);
 
-  const signIn = async (email: string): Promise<{ error: string | null }> => {
+  const signIn = async (email: string, password?: string): Promise<{ error: string | null }> => {
     if (!supabase) {
       return { error: 'Supabase未配置' };
     }
 
+    // If password provided, use password sign in
+    if (password) {
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) {
+        return { error: error.message };
+      }
+      return { error: null };
+    }
+
+    // Otherwise use magic link
     const { error } = await supabase.auth.signInWithOtp({
       email,
+      options: {
+        emailRedirectTo: `${window.location.origin}`,
+      },
+    });
+
+    if (error) {
+      return { error: error.message };
+    }
+
+    return { error: null };
+  };
+
+  const signUp = async (email: string, password: string): Promise<{ error: string | null }> => {
+    if (!supabase) {
+      return { error: 'Supabase未配置' };
+    }
+
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
       options: {
         emailRedirectTo: `${window.location.origin}`,
       },
@@ -72,6 +105,7 @@ export function useAuth() {
     session,
     loading,
     signIn,
+    signUp,
     signOut,
     isAuthenticated: !!user,
   };
