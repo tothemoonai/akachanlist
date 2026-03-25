@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useUserList } from '../contexts/UserListContext';
 import { AuthButton } from './user/AuthButton';
-import { Menu, Baby, ShoppingCart } from 'lucide-react';
+import { Menu, Baby, ShoppingCart, BookOpen } from 'lucide-react';
 import { LanguageSwitcher } from './LanguageSwitcher';
 import { ListSidebar } from './user/ListSidebar';
 import { ShoppingListView } from './user/ShoppingListView';
@@ -41,6 +42,13 @@ export function Header({ title, subtitle }: HeaderProps) {
             </div>
 
             <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+              <Link
+                to="/reviews"
+                className="p-1.5 sm:p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                aria-label={language === 'zh' ? '测评' : 'レビュー'}
+              >
+                <BookOpen className="w-5 h-5 sm:w-6 sm:h-6" />
+              </Link>
               <LanguageSwitcher />
               <AuthButton />
 

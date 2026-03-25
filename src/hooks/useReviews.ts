@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getReviews, createReview, updateReview, deleteReview } from '../lib/supabase';
+import { getReviews, getReviewBySlug, createReview, updateReview, deleteReview } from '../lib/supabase';
 import { Review, ReviewFilters } from '../types/reviews';
 
 export function useReviews(filters: ReviewFilters = {}) {
@@ -46,4 +46,21 @@ export function useReviews(filters: ReviewFilters = {}) {
     isUpdating: updateMutation.isPending,
     isDeleting: deleteMutation.isPending,
   };
+}
+
+export function useReview(slug: string) {
+  return useQuery({
+    queryKey: ['review', slug],
+    queryFn: () => getReviewBySlug(slug),
+    enabled: !!slug,
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
+}
+
+export function useFeaturedReviews() {
+  return useQuery({
+    queryKey: ['reviews', { featured: true, limit: 5 }],
+    queryFn: () => getReviews({ featured: true, limit: 5 }),
+    staleTime: 10 * 60 * 1000, // 10 minutes
+  });
 }
