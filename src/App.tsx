@@ -3,9 +3,12 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { UserListProvider } from './contexts/UserListContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
 import { Reviews } from './pages/Reviews';
 import { ReviewDetail } from './components/reviews/ReviewDetail';
+import { ReviewAdmin } from './components/reviews/ReviewAdmin';
+import { ReviewEditor } from './components/reviews/ReviewEditor';
 import './styles/index.css';
 
 const queryClient = new QueryClient({
@@ -28,6 +31,30 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/reviews" element={<Reviews />} />
                 <Route path="/reviews/:slug" element={<ReviewDetail />} />
+                <Route
+                  path="/reviews/admin"
+                  element={
+                    <ProtectedRoute>
+                      <ReviewAdmin />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/reviews/admin/new"
+                  element={
+                    <ProtectedRoute>
+                      <ReviewEditor />
+                    </ProtectedRoute>
+                  }
+                />
+                <Route
+                  path="/reviews/admin/:id/edit"
+                  element={
+                    <ProtectedRoute>
+                      <ReviewEditor />
+                    </ProtectedRoute>
+                  }
+                />
               </Routes>
             </BrowserRouter>
           </UserListProvider>
