@@ -1,5 +1,11 @@
 {
   "github": {
     "enabled": true
-  }
+  },
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
+    }
+  ]
 }
