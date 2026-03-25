@@ -134,7 +134,10 @@
       "Bash(netstat -ano)",
       "Bash(taskkill /F /PID 70400)",
       "Bash(vercel list:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(git merge:*)",
+      "Bash(curl -I https://akachanlist.vercel.app/login)",
+      "Bash(curl -I https://akachanlist.vercel.app/*)"
     ]
   }
 }

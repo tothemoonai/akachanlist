@@ -1,0 +1,4 @@
+  https://akachanlist.vercel.app/login
+  2. 输入管理员账号
+    - 邮箱：admin@akachanlist.com
+    - 密码：Admin@123456

@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import { X, Plus, Trash2, ChevronRight } from 'lucide-react';
+import { X, Plus, Trash2, ChevronRight, Share2, Link, Link2Off } from 'lucide-react';
 import { useUserList } from '../../contexts/UserListContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { CreateListDialog } from './CreateListDialog';
 import { ConfirmDialog } from './ConfirmDialog';
+import { enableListSharing, disableListSharing } from '../../lib/supabase';
 
 interface ListSidebarProps {
   isOpen: boolean;
@@ -15,11 +16,32 @@ export function ListSidebar({ isOpen, onClose }: ListSidebarProps) {
   const { language } = useLanguage();
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [listToDelete, setListToDelete] = useState<string | null>(null);
+  const [sharedListId, setSharedListId] = useState<string | null>(null);
+  const [copiedToken, setCopiedToken] = useState<string | null>(null);
 
   const handleDeleteList = async () => {
     if (listToDelete) {
       await deleteList(listToDelete);
       setListToDelete(null);
+    }
+  };
+
+  const handleToggleShare = async (listId: string, isCurrentlyShared: boolean) => {
+    try {
+      if (isCurrentlyShared) {
+        await disableListSharing(listId);
+        setSharedListId(null);
+      } else {
+        const token = await enableListSharing(listId);
+        setSharedListId(listId);
+        const shareUrl = `${window.location.origin}/share/${token}`;
+        navigator.clipboard.writeText(shareUrl);
+        setCopiedToken(token);
+        setTimeout(() => setCopiedToken(null), 2000);
+      }
+    } catch (error) {
+      console.error('Failed to toggle share:', error);
+      alert(language === 'zh' ? '操作失败，请重试' : '操作に失敗しました');
     }
   };
 
@@ -94,6 +116,34 @@ export function ListSidebar({ isOpen, onClose }: ListSidebarProps) {
                           currentList?.id === list.id ? 'text-pink-500' : 'text-gray-400'
                         }`}
                       />
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleToggleShare(list.id, !!list.is_public);
+                        }}
+                        className={`p-1 transition-opacity ${
+                          list.is_public
+                            ? 'text-pink-500 hover:text-pink-600'
+                            : 'text-gray-400 hover:text-pink-500'
+                        } ${copiedToken && sharedListId === list.id ? 'animate-pulse' : 'opacity-0 group-hover:opacity-100'}`}
+                        title={list.is_public
+                          ? (copiedToken && sharedListId === list.id)
+                            ? (language === 'zh' ? '已复制链接！' : 'リンクをコピーしました！')
+                            : (language === 'zh' ? '取消分享' : '共有を解除')
+                          : (language === 'zh' ? '分享清单' : '共有')
+                        }
+                      >
+                        {list.is_public ? (
+                          copiedToken && sharedListId === list.id ? (
+                            <Link className="w-4 h-4" />
+                          ) : (
+                            <Link2Off className="w-4 h-4" />
+                          )
+                        ) : (
+                          <Share2 className="w-4 h-4" />
+                        )}
+                      </button>
 
                       <button
                         onClick={(e) => {
