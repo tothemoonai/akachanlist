@@ -108,7 +108,31 @@
       "Bash(cd /c/ClaudeCodeProject/akachanlist/scripts/akachan_images && ls -1 | grep -E \"\\\\.\\(gif|png\\)$\")",
       "Bash(curl -s \"https://akachanlist-9wwlgx836-tothemoonais-projects.vercel.app/icons/icon__nav_category_1.gif\" | head -c 10)",
       "Bash(curl -I \"https://akachanlist-ni4egl9rv-tothemoonais-projects.vercel.app/icons/icon__nav_category_1.gif\" 2>&1 | head -20)",
-      "Bash(curl -s \"https://akachanlist-ni4egl9rv-tothemoonais-projects.vercel.app/\" | grep -i \"icon\" | head -10)"
+      "Bash(curl -s \"https://akachanlist-ni4egl9rv-tothemoonais-projects.vercel.app/\" | grep -i \"icon\" | head -10)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\\\\supabase\\\\migrations\" && mv 003_update_item_icons.sql 007_update_item_icons_to_png.sql)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/check-supabase-data.js)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/update-supabase-icons.js)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/test-update.js)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\\\\public\\\\icons\" && ls -1 *.png)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/download-item-icons.js)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/download-item-icons.js 2>&1 | head -50)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/download-original-icons.js 2>&1 | head -80)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/download-original-icons.js 2>&1 | head -100)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && timeout 60 node scripts/download-original-icons.js 2>&1 | head -150)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/update-supabase-individual-icons.js)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/update-supabase-individual-icons.js 2>&1 | tail -80)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/update-supabase-individual-icons.js 2>&1)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && vercel --prod)",
+      "Bash(cd \"C:\\\\ClaudeCodeProject\\\\akachanlist\" && node scripts/update-category-icons.js)",
+      "Bash(npm audit:*)",
+      "Bash(npm ls:*)",
+      "Bash(npm info:*)",
+      "Bash(grep -E \"\\\\.sql$\")",
+      "Bash(find . -name *.sql -type f)",
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(grep -r export.*Editor node_modules/@tiptap/react/dist/*.d.ts)",
+      "Bash(netstat -ano)",
+      "Bash(taskkill /F /PID 70400)"
     ]
   }
 }
