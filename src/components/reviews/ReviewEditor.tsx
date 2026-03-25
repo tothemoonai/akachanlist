@@ -1,13 +1,14 @@
 import { useState } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import { useReviews } from '../../hooks/useReviews';
 import { ReviewFormData } from '../../types/reviews';
 import { Star, X, Save, Upload } from 'lucide-react';
 import { useTiptapEditor } from '../../hooks/useTiptapEditor';
+import { EditorContent } from '@tiptap/react';
 
 interface ReviewEditorProps {
-  initialData?: Partial<ReviewFormData>;
+  initialData?: Partial<ReviewFormData> & { id?: string };
   isEditing?: boolean;
 }
 
@@ -16,15 +17,16 @@ export function ReviewEditor({ initialData, isEditing = false }: ReviewEditorPro
   const queryClient = useQueryClient();
   const { createReview, updateReview, isCreating, isUpdating } = useReviews();
 
-  const [formData, setFormData] = useState<ReviewFormData>(
-    initialData || {
-      title: '',
-      slug: '',
-      content: '',
-      status: 'draft',
-      featured: false,
-    }
-  );
+  const [formData, setFormData] = useState<ReviewFormData>({
+    title: initialData?.title || '',
+    slug: initialData?.slug || '',
+    content: initialData?.content || '',
+    status: initialData?.status || 'draft',
+    featured: initialData?.featured || false,
+    category: initialData?.category || '',
+    rating: initialData?.rating || undefined,
+    cover_image: initialData?.cover_image || '',
+  });
 
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | undefined>(
@@ -41,12 +43,11 @@ export function ReviewEditor({ initialData, isEditing = false }: ReviewEditorPro
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const mutationFn = isEditing
-      ? ({ id, review }: { id: string; review: Partial<ReviewFormData> }) =>
-          updateReview({ id, review: formData })
-      : (review: Partial<ReviewFormData>) => createReview(review);
-
-    await mutationFn(formData);
+    if (isEditing && initialData?.id) {
+      await updateReview({ id: initialData.id, review: formData });
+    } else {
+      await createReview(formData);
+    }
     queryClient.invalidateQueries({ queryKey: ['reviews'] });
     navigate('/reviews/admin');
   };
@@ -257,7 +258,7 @@ export function ReviewEditor({ initialData, isEditing = false }: ReviewEditorPro
                   </button>
                 </div>
                 <div className="prose max-w-none p-4 min-h-[300px]">
-                  <editor.Content />
+                  {editor && <EditorContent editor={editor} />}
                 </div>
               </div>
             )}

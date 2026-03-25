@@ -114,7 +114,7 @@ export async function uploadReviewImage(file: File) {
   const fileName = `${Math.random()}.${fileExt}`;
   const filePath = `reviews/${fileName}`;
 
-  const { data, error } = await supabase.storage
+  const { error } = await supabase.storage
     .from('review-images')
     .upload(filePath, file);
 

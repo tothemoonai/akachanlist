@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { useUserList } from '../contexts/UserListContext';
+import { useAuth } from '../hooks/useAuth';
 import { LoadingSpinner } from './LoadingSpinner';
 
 interface ProtectedRouteProps {
@@ -7,7 +7,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const { user, loading } = useUserList();
+  const { user, loading } = useAuth();
 
   if (loading) {
     return (

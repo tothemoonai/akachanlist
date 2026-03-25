@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getReviewBySlug } from '../lib/supabase';
-import { Review } from '../types/reviews';
 
 export function useReviewBySlug(slug: string) {
   const reviewQuery = useQuery({

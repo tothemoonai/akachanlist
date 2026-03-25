@@ -5,7 +5,7 @@ import { UserListProvider } from './contexts/UserListContext';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
-import { Reviews } from './pages/Reviews';
+import Reviews from './pages/Reviews';
 import { ReviewDetail } from './components/reviews/ReviewDetail';
 import { ReviewAdmin } from './components/reviews/ReviewAdmin';
 import { ReviewEditor } from './components/reviews/ReviewEditor';

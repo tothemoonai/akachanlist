@@ -1,6 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
 import { getReviewsByItemId } from '../lib/supabase';
-import { Review } from '../types/reviews';
 
 export function useRelatedReviews(itemId: string) {
   const relatedQuery = useQuery({

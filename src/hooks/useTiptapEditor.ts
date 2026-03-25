@@ -9,7 +9,7 @@ interface UseTiptapEditorProps {
 }
 
 export function useTiptapEditor({ content = '', onUpdate }: UseTiptapEditorProps) {
-  return useEditor({
+  const editor = useEditor({
     extensions: [
       StarterKit.configure({
         heading: {
@@ -34,4 +34,7 @@ export function useTiptapEditor({ content = '', onUpdate }: UseTiptapEditorProps
       },
     },
   });
+
+  // Return editor directly (will be null initially, but that's handled by the component)
+  return editor;
 }

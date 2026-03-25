@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useFeaturedReviews } from '../../hooks/useReviews';
 import { Star, TrendingUp, X } from 'lucide-react';
-import { ReviewCard } from './ReviewCard';
+import ReviewCard from './ReviewCard';
+import { Review } from '../../types/reviews';
 
 export function ReviewSidebar() {
-  const { reviews, isLoading } = useFeaturedReviews();
+  const { data: featuredData, isLoading } = useFeaturedReviews();
+  const reviews = featuredData?.reviews || [];
   const [isMobileModalOpen, setIsMobileModalOpen] = useState(false);
 
   return (
@@ -29,7 +31,7 @@ export function ReviewSidebar() {
             </div>
           ) : (
             <div className="space-y-4">
-              {reviews?.map((review) => (
+              {reviews?.map((review: Review) => (
                 <Link
                   key={review.id}
                   to={`/reviews/${review.slug}`}
@@ -96,7 +98,7 @@ export function ReviewSidebar() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {reviews?.map((review) => (
+                  {reviews?.map((review: Review) => (
                     <Link
                       key={review.id}
                       to={`/reviews/${review.slug}`}

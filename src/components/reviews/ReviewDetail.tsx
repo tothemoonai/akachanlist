@@ -1,11 +1,11 @@
 import { useParams, Link } from 'react-router-dom';
-import { useReview } from '../../hooks/useReviews';
+import { useReviewBySlug } from '../../hooks/useReviewBySlug';
 import { LoadingSpinner } from '../LoadingSpinner';
 import { Star, Calendar, User, ExternalLink, ArrowLeft } from 'lucide-react';
 
 export function ReviewDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { review, isLoading, isError } = useReview(slug!);
+  const { review, isLoading, isError } = useReviewBySlug(slug!);
 
   if (isLoading) {
     return (
