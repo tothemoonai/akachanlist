@@ -212,3 +212,8 @@ export const VALIDATION_RULES = {
     MAX: 99,
   },
 } as const;
+
+// ============================================
+// Reviews Types
+// ============================================
+export * from './reviews';
