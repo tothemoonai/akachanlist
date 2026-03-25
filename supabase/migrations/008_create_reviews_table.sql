@@ -96,7 +96,7 @@ CREATE TRIGGER update_reviews_updated_at BEFORE UPDATE ON reviews
 -- ============================================
 INSERT INTO reviews (user_id, title, slug, excerpt, content, cover_image, author_name, author_avatar, category_id, subcategory_id, item_id, meta_title, meta_description, keywords, status, featured, rating, source_url, source_site, published_at) VALUES
 (
-  '00000000-0000-0000-0000-000000000000',
+  NULL,
   '新生儿汽车座椅购买指南：如何选择最适合的安全座椅',
   'newborn-car-seat-buying-guide',
   '选择合适的新生儿汽车座椅至关重要。本文将详细介绍如何根据宝宝的年龄、体重和车型来选择最安全的汽车座椅。',
@@ -152,7 +152,7 @@ INSERT INTO reviews (user_id, title, slug, excerpt, content, cover_image, author
   NOW()
 ),
 (
-  '00000000-0000-0000-0000-000000000000',
+  NULL,
   '纸尿裤品牌对比：帮宝适vs大王vs花王',
   'diaper-brand-comparison',
   '本文详细对比了市面上最受欢迎的三大纸尿裤品牌：帮宝适、大王和花王，从价格、透气性、吸水性等多个维度进行分析。',
@@ -210,7 +210,7 @@ INSERT INTO reviews (user_id, title, slug, excerpt, content, cover_image, author
   NOW() - INTERVAL '2 days'
 ),
 (
-  '00000000-0000-0000-0000-000000000000',
+  NULL,
   '初为人母：待产包清单大全',
   'hospital-bag-checklist',
   '待产包应该准备什么？本文为您整理了最全面的待产包清单，包括妈妈用品、宝宝用品、证件等重要物品。',
