@@ -6,6 +6,7 @@ import { ErrorBoundary } from './components/ErrorBoundary';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { Home } from './pages/Home';
 import Reviews from './pages/Reviews';
+import Login from './pages/Login';
 import { ReviewDetail } from './components/reviews/ReviewDetail';
 import { ReviewAdmin } from './components/reviews/ReviewAdmin';
 import { ReviewEditor } from './components/reviews/ReviewEditor';
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/reviews" element={<Reviews />} />
                 <Route path="/reviews/:slug" element={<ReviewDetail />} />
+                <Route path="/login" element={<Login />} />
                 <Route
                   path="/reviews/admin"
                   element={

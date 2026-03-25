@@ -132,7 +132,9 @@
       "Bash(curl -s http://localhost:5173)",
       "Bash(grep -r export.*Editor node_modules/@tiptap/react/dist/*.d.ts)",
       "Bash(netstat -ano)",
-      "Bash(taskkill /F /PID 70400)"
+      "Bash(taskkill /F /PID 70400)",
+      "Bash(vercel list:*)",
+      "Bash(node:*)"
     ]
   }
 }
